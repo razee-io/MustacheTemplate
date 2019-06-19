@@ -115,7 +115,7 @@ Schema:
   - required: oneOf [configMapRef, secretMapRef, genericMapRef]
   - optional: [optional]
 
-#### Reference EnvFrom
+#### EnvFrom Ref
 
 - `.spec.envFrom.configMapRef` || `.spec.envFrom.secretMapRef`
   - retrieves all values from a ConfigMap or Secret. The keys from the ConfigMap
@@ -133,7 +133,7 @@ Schema:
     - required: [apiVersion, kind, name]
     - optional: [namespace]
 
-#### Optional EnvFrom
+#### EnvFrom Optional
 
 `.spec.envFrom.optional`
 
@@ -163,7 +163,7 @@ Schema:
     - oneOf [value, valueFrom.configMapKeyRef, valueFrom.secretKeyRef, valueFrom.genericKeyRef]
   - optional: [optional, default]
 
-#### Reference Env
+#### Env Ref
 
 - `.spec.env.name`
   - name used to insert the referenced value into the template
@@ -187,7 +187,7 @@ Schema:
     - required: [apiVersion, kind, name, key]
     - optional: [namespace]
 
-#### Optional Env
+#### Env Optional
 
 `.spec.env.optional`
 
@@ -200,7 +200,7 @@ Schema:
   - if fetching env/envFrom resource fails, MustacheTemplate will continue
   attempting to process the templates, and will report info to `.status`.
 
-#### Default Env
+#### Env Default
 
 `.spec.env.default`
 
