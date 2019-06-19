@@ -118,11 +118,16 @@ Schema:
 #### Reference EnvFrom
 
 - `.spec.envFrom.configMapRef` || `.spec.envFrom.secretMapRef`
+  - retrieves all values from a ConfigMap or Secret. The keys from the ConfigMap
+  or Secret become the names used to insert the referenced value into the template.
   - Schema:
     - type: object
     - required: [name]
     - optional: [namespace]
 - `.spec.envFrom.genericMapRef`
+  - retrieves all values from any resource kind that has a `.data` section to pull
+   from. The keys from the `.data` section become the names used to insert the referenced
+   value into the template.
   - Schema:
     - type: object
     - required: [apiVersion, kind, name]
@@ -160,15 +165,23 @@ Schema:
 
 #### Reference Env
 
+- `.spec.env.name`
+  - name used to insert the referenced value into the template
+  - Schema:
+    - type: string
 - `.spec.env.value`
+  - static value to inject into template
   - Schema:
     - type: number|string|boolean
 - `.spec.env.valueFrom.configMapKeyRef` || `.spec.env.valueFrom.secretKeyRef`
+  - value referenced from a specific key in a ConfigMap or Secret
   - Schema:
     - type: object
     - required: [name, key]
     - optional: [namespace]
 - `.spec.env.valueFrom.genericKeyRef`
+  - value referenced from a specific key in any resource kind that has a `.data`
+  section to pull data from.
   - Schema:
     - type: object
     - required: [apiVersion, kind, name, key]
