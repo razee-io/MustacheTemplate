@@ -117,12 +117,12 @@ Schema:
 
 #### Reference EnvFrom
 
-1. `.spec.envFrom.configMapRef` || `.spec.envFrom.secretMapRef`
+- `.spec.envFrom.configMapRef` || `.spec.envFrom.secretMapRef`
   - Schema:
     - type: object
     - required: [name]
     - optional: [namespace]
-1. `.spec.envFrom.genericMapRef`
+- `.spec.envFrom.genericMapRef`
   - Schema:
     - type: object
     - required: [apiVersion, kind, name]
@@ -160,15 +160,15 @@ Schema:
 
 #### Reference Env
 
-1. `.spec.env.value`
+- `.spec.env.value`
   - Schema:
     - type: number|string|boolean
-1. `.spec.env.valueFrom.configMapKeyRef` || `.spec.env.valueFrom.secretKeyRef`
+- `.spec.env.valueFrom.configMapKeyRef` || `.spec.env.valueFrom.secretKeyRef`
   - Schema:
     - type: object
     - required: [name, key]
     - optional: [namespace]
-1. `.spec.env.valueFrom.genericKeyRef`
+- `.spec.env.valueFrom.genericKeyRef`
   - Schema:
     - type: object
     - required: [apiVersion, kind, name, key]
