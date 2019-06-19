@@ -181,7 +181,7 @@ Schema:
 - DEFAULT: `false`
   - if fetching env/envFrom resource fails, MustacheTemplate will stop
   execution and report error to `.status`.
-  - **Note**: if [`.spec.env.default`](#Default-Env) is specified, that value will
+  - **Note**: if `.spec.env.default` is specified, that value will
   be used, execution  will continue, and MustacheTemplate will report info to `.status`.
 - `true`
   - if fetching env/envFrom resource fails, MustacheTemplate will continue
