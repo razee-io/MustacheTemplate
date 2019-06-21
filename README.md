@@ -88,15 +88,14 @@ spec:
 Specifying custom tags will override the default mustache tags. this can be useful
 when you need to reserve `{{ }}` for some other processing.
 
-Schema:
-
-- type: array
-- minItems/maxItems: 2
-- items:
-  - type: string
-  - minLength: 2
-  - maxLength: 3
-- default: `['{{', '}}']`
+- Schema:
+  - type: array
+  - minItems/maxItems: 2
+  - items:
+    - type: string
+    - minLength: 2
+    - maxLength: 3
+  - default: `['{{', '}}']`
 
 ### EnvFrom
 
@@ -143,9 +142,8 @@ last in wins.
   - if fetching env/envFrom resource fails, MustacheTemplate will continue
   attempting to process the templates, and will report info to `.status`.
 
-Schema:
-
-- type: boolean
+- Schema:
+  - type: boolean
 
 ### Env
 
@@ -156,15 +154,14 @@ processing. **Note**: values are loaded in `.spec.envFrom` before
 `.spec.env`, top down. Any values with the same key/name will be overwritten;
 last in wins.
 
-Schema:
-
-- type: array
-- items:
-  - type: object
-  - required:
-    - name
-    - oneOf [value, valueFrom.configMapKeyRef, valueFrom.secretKeyRef, valueFrom.genericKeyRef]
-  - optional: [optional, default]
+- Schema:
+  - type: array
+  - items:
+    - type: object
+    - required:
+      - name
+      - oneOf [value, valueFrom.configMapKeyRef, valueFrom.secretKeyRef, valueFrom.genericKeyRef]
+    - optional: [optional, default]
 
 #### Env Ref
 
@@ -209,9 +206,8 @@ Schema:
 
 If fetching env/envFrom resource fails, will use the value specified by default.
 
-Schema:
-
-- type: number|string|boolean
+- Schema:
+  - type: number|string|boolean
 
 ### Managed Resource Labels
 
