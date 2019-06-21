@@ -144,6 +144,10 @@ Schema:
   - if fetching env/envFrom resource fails, MustacheTemplate will continue
   attempting to process the templates, and will report info to `.status`.
 
+Schema:
+
+- type: boolean
+
 ### Env
 
 `.spec.env`
