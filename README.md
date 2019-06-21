@@ -107,13 +107,12 @@ processing. **Note**: values are loaded in `.spec.envFrom` before
 `.spec.env`, top down. Any values with the same key/name will be overwritten;
 last in wins.
 
-Schema:
-
-- type: array
-- items:
-  - type: object
-  - required: oneOf [configMapRef, secretMapRef, genericMapRef]
-  - optional: [optional]
+- Schema:
+  - type: array
+  - items:
+    - type: object
+    - required: oneOf [configMapRef, secretMapRef, genericMapRef]
+    - optional: [optional]
 
 #### EnvFrom Ref
 
