@@ -252,7 +252,7 @@ Mode options:
   - Will ensure the resource is created and is replaced if deleted. Will not
   enforce a definition.
 
-  ### Debug Individual Resource
+### Debug Individual Resource
 
   `.spec.resources.metadata.labels[kapitan.razee.io/debug]`
 
