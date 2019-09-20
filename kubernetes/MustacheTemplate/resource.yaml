@@ -61,13 +61,13 @@ items:
     kind: CustomResourceDefinition
     metadata:
       # name must match the spec fields below, and be in the form: <plural>.<group>
-      name: mustachetemplates.razee.razee.io
+      name: mustachetemplates.deploy.razee.io
       annotations:
         razee.io/git-repo: "{{{GIT_REMOTE}}}"
         razee.io/commit-sha: "{{TRAVIS_COMMIT}}"
     spec:
       # group name to use for REST API: /apis/<group>/<version>
-      group: razee.razee.io
+      group: deploy.razee.io
       # list of versions supported by this CustomResourceDefinition
       versions:
         - name: v1alpha1
