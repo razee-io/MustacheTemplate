@@ -16,6 +16,7 @@
 
 const Mustache = require('mustache');
 const objectPath = require('object-path');
+const yaml = require('js-yaml');
 
 const { BaseTemplateController } = require('@razee/razeedeploy-core');
 
@@ -27,23 +28,35 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
   }
 
   async _stringify(o) {
-    return JSON.stringify(o);
+    o.forEach((obj, i) => {
+      if (typeof obj === 'object') {
+        o[i] = JSON.stringify(obj);
+      }
+    });
+    return o;
   }
 
   async _parse(s) {
-    return JSON.parse(s);
+    s.forEach((str, i) => {
+      if (typeof str === 'string') {
+        s[i] = yaml.safeLoad(str);
+      }
+    });
+    return s;
   }
 
   async processTemplate(templates, view) {
     let customTags = objectPath.get(this.data, ['object', 'spec', 'custom-tags']);
-    let templatesString = await this._stringify(templates);
+    let templatesArr = await this._stringify(templates);
     let tempTags = Mustache.tags;
     if (customTags) {
       Mustache.tags = customTags;
     }
-    let resultString = Mustache.render(templatesString, view);
+    templatesArr.forEach((templatesString, i) => {
+      templatesArr[i] = Mustache.render(templatesString, view);
+    });
     Mustache.tags = tempTags;
-    let result = await this._parse(resultString);
+    let result = await this._parse(templatesArr);
     return result;
   }
 
