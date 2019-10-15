@@ -27,7 +27,10 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     super(params);
   }
 
-  async _stringify(o) {
+  async _stringifyTemplates(o) {
+    if (!Array.isArray(o)) {
+      return Promise.reject({ statusCode: 500, message: '_stringifyTemplates expects an array' });
+    }
     o.forEach((obj, i) => {
       if (typeof obj === 'object') {
         o[i] = JSON.stringify(obj);
@@ -36,7 +39,10 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     return o;
   }
 
-  async _parse(s) {
+  async _parseTemplates(s) {
+    if (!Array.isArray(s)) {
+      return Promise.reject({ statusCode: 500, message: '_parseTemplates expects an array' });
+    }
     s.forEach((str, i) => {
       if (typeof str === 'string') {
         s[i] = yaml.safeLoad(str);
@@ -47,7 +53,7 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
 
   async processTemplate(templates, view) {
     let customTags = objectPath.get(this.data, ['object', 'spec', 'custom-tags']);
-    let templatesArr = await this._stringify(templates);
+    let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
     if (customTags) {
       Mustache.tags = customTags;
@@ -56,7 +62,7 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
       templatesArr[i] = Mustache.render(templatesString, view);
     });
     Mustache.tags = tempTags;
-    let result = await this._parse(templatesArr);
+    let result = await this._parseTemplates(templatesArr);
     return result;
   }
 
