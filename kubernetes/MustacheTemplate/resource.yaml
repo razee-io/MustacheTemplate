@@ -104,7 +104,7 @@ items:
               allOf:
                 - anyOf:
                     - required: [templates]
-                    - required: [templatesStr]
+                    - required: [strTemplates]
                 - anyOf:
                     - required: [envFrom]
                     - required: [env]
