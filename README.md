@@ -24,36 +24,37 @@ kubectl apply -f "https://github.com/razee-io/MustacheTemplate/releases/latest/d
 ### Sample
 
 ```yaml
-apiVersion: "deploy.razee.io/v1alpha1"
+apiVersion: deploy.razee.io/v1alpha2
 kind: MustacheTemplate
 metadata:
-  name: <mustache_template_name>
-  namespace: <namespace>
+  name: razeedeploy-test
+  namespace: razeedeploy
 spec:
-  # custom-tags: ['<%', '%>']
   envFrom:
-  - optional: true
-    configMapRef:
-      name: <ConfigMap Name>
-      namespace: <ConfigMap Namespace>
+  - genericMapRef:
+      apiVersion: something.io/v1beta1
+      kind: ourkind
+      name: test
+      namespace: default
   env:
-  - name: desired-replicas
-    value: 3
-  - name: app-label
-    optional: true
-    default: "deployment 1"
-    valueFrom:
-      configMapKeyRef:
-         name: <ConfigMap Name>
-         namespace: <ConfigMap Namespace>
-         key: <key within that ConfigMap
+    - name: value2
+      value: 3
+    - name: value
+      valueFrom:
+        genericKeyRef:
+          apiVersion: something.io/v1beta1
+          kind: ourkind
+          name: test
+          key: test
+          type: number
   templates:
   - apiVersion: v1
     kind: ConfigMap
     metadata:
       name: test-config
     data:
-      test: "{{ desired-replicas }}"
+      test: "{{ value }}"
+  strTemplates:
   - |
       apiVersion: apps/v1
       kind: Deployment
@@ -63,7 +64,7 @@ spec:
           app: nginx
           deployment: {{ app-label }}
       spec:
-        replicas: {{ desired-replicas }}
+        replicas: {{ value }}
         selector:
           matchLabels:
             app: nginx
