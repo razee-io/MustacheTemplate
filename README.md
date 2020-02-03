@@ -276,13 +276,47 @@ env:
         properties:
           configMapKeyRef:
             type: object
-            ...
+            required: [name, key]
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+              namespace:
+                type: string
+              type:
+                type: string
+                enum: [number, boolean, json]
           secretKeyRef:
             type: object
-            ...
+            required: [name, key]
+            properties:
+              name:
+                type: string
+              key:
+                type: string
+              namespace:
+                type: string
+              type:
+                type: string
+                enum: [number, boolean, json]
           genericKeyRef:
             type: object
-            ...
+            required: [apiVersion, kind, name, key]
+            properties:
+              apiVersion:
+                type: string
+              kind:
+                type: string
+              name:
+                type: string
+              key:
+                type: string
+              namespace:
+                type: string
+              type:
+                type: string
+                enum: [number, boolean, json]
 ```
 
 #### Env Optional
