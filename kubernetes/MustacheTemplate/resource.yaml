@@ -102,6 +102,172 @@ items:
           served: true
           # One and only one version must be marked as the storage version.
           storage: true
+          schema:
+            # openAPIV3Schema is the schema for validating custom objects.
+            openAPIV3Schema:
+              type: object
+              required: [spec]
+              properties:
+                spec:
+                  type: object
+                  allOf:
+                    - anyOf:
+                        - required: [templates]
+                        - required: [strTemplates]
+                    - anyOf:
+                        - required: [envFrom]
+                        - required: [env]
+                  properties:
+                    custom-tags:
+                      type: array
+                      maxItems: 2
+                      minItems: 2
+                      items:
+                        type: string
+                        maxLength: 3
+                        minLength: 2
+                    envFrom:
+                      type: array
+                      items:
+                        type: object
+                        oneOf:
+                          - required: [configMapRef]
+                          - required: [secretMapRef]
+                          - required: [genericMapRef]
+                        properties:
+                          optional:
+                            type: boolean
+                          configMapRef:
+                            type: object
+                            required: [name]
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                          secretMapRef:
+                            type: object
+                            required: [name]
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                          genericMapRef:
+                            type: object
+                            required: [apiVersion, kind, name]
+                            properties:
+                              apiVersion:
+                                type: string
+                              kind:
+                                type: string
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                    env:
+                      type: array
+                      items:
+                        type: object
+                        allOf:
+                          - required: [name]
+                          - # all array items should be oneOf ['value', 'valueFrom']
+                            oneOf:
+                              - required: [value]
+                                # if 'value', neither 'optional' nor 'default' may be used
+                                not:
+                                  anyOf:
+                                    - required: [default]
+                                    - required: [optional]
+                              - required: [valueFrom]
+                                # if 'valueFrom', you must define oneOf:
+                                oneOf:
+                                  - # neither 'optional' nor 'default' is used
+                                    not:
+                                      anyOf:
+                                        - required: [default]
+                                        - required: [optional]
+                                  - # 'optional' is used by itself
+                                    required: [optional]
+                                    not:
+                                      required: [default]
+                                  - # 'optional' and 'default' are used together IFF optional == true
+                                    required: [optional, default]
+                                    properties:
+                                      optional:
+                                        enum: [true]
+                        properties:
+                          optional:
+                            type: boolean
+                          default:
+                            x-kubernetes-int-or-string: true
+                          name:
+                            type: string
+                          value:
+                            x-kubernetes-int-or-string: true
+                          valueFrom:
+                            type: object
+                            oneOf:
+                              - required: [configMapKeyRef]
+                              - required: [secretKeyRef]
+                              - required: [genericKeyRef]
+                            properties:
+                              configMapKeyRef:
+                                type: object
+                                required: [name, key]
+                                properties:
+                                  name:
+                                    type: string
+                                  key:
+                                    type: string
+                                  namespace:
+                                    type: string
+                                  type:
+                                    type: string
+                                    enum: [number, boolean, json]
+                              secretKeyRef:
+                                type: object
+                                required: [name, key]
+                                properties:
+                                  name:
+                                    type: string
+                                  key:
+                                    type: string
+                                  namespace:
+                                    type: string
+                                  type:
+                                    type: string
+                                    enum: [number, boolean, json]
+                              genericKeyRef:
+                                type: object
+                                required: [apiVersion, kind, name, key]
+                                properties:
+                                  apiVersion:
+                                    type: string
+                                  kind:
+                                    type: string
+                                  name:
+                                    type: string
+                                  key:
+                                    type: string
+                                  namespace:
+                                    type: string
+                                  type:
+                                    type: string
+                                    enum: [number, boolean, json]
+                    templates:
+                      type: array
+                      items:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    strTemplates:
+                      type: array
+                      items:
+                        type: string
+                status:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
       # either Namespaced or Cluster
       scope: Namespaced
       names:
@@ -117,166 +283,3 @@ items:
       subresources:
         # status enables the status subresource.
         status: {}
-      validation:
-        # openAPIV3Schema is the schema for validating custom objects.
-        openAPIV3Schema:
-          type: object
-          required: [spec]
-          properties:
-            spec:
-              type: object
-              allOf:
-                - anyOf:
-                    - required: [templates]
-                    - required: [strTemplates]
-                - anyOf:
-                    - required: [envFrom]
-                    - required: [env]
-              properties:
-                custom-tags:
-                  type: array
-                  maxItems: 2
-                  minItems: 2
-                  items:
-                    type: string
-                    maxLength: 3
-                    minLength: 2
-                envFrom:
-                  type: array
-                  items:
-                    type: object
-                    oneOf:
-                      - required: [configMapRef]
-                      - required: [secretMapRef]
-                      - required: [genericMapRef]
-                    properties:
-                      optional:
-                        type: boolean
-                      configMapRef:
-                        type: object
-                        required: [name]
-                        properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                      secretMapRef:
-                        type: object
-                        required: [name]
-                        properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                      genericMapRef:
-                        type: object
-                        required: [apiVersion, kind, name]
-                        properties:
-                          apiVersion:
-                            type: string
-                          kind:
-                            type: string
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                env:
-                  type: array
-                  items:
-                    type: object
-                    allOf:
-                      - required: [name]
-                      - # all array items should be oneOf ['value', 'valueFrom']
-                        oneOf:
-                          - required: [value]
-                            # if 'value', neither 'optional' nor 'default' may be used
-                            not:
-                              anyOf:
-                                - required: [default]
-                                - required: [optional]
-                          - required: [valueFrom]
-                            # if 'valueFrom', you must define oneOf:
-                            oneOf:
-                              - # neither 'optional' nor 'default' is used
-                                not:
-                                  anyOf:
-                                    - required: [default]
-                                    - required: [optional]
-                              - # 'optional' is used by itself
-                                required: [optional]
-                                not:
-                                  required: [default]
-                              - # 'optional' and 'default' are used together IFF optional == true
-                                required: [optional, default]
-                                properties:
-                                  optional:
-                                    enum: [true]
-                    properties:
-                      optional:
-                        type: boolean
-                      default:
-                        x-kubernetes-int-or-string: true
-                      name:
-                        type: string
-                      value:
-                        x-kubernetes-int-or-string: true
-                      valueFrom:
-                        type: object
-                        oneOf:
-                          - required: [configMapKeyRef]
-                          - required: [secretKeyRef]
-                          - required: [genericKeyRef]
-                        properties:
-                          configMapKeyRef:
-                            type: object
-                            required: [name, key]
-                            properties:
-                              name:
-                                type: string
-                              key:
-                                type: string
-                              namespace:
-                                type: string
-                              type:
-                                type: string
-                                enum: [number, boolean, json]
-                          secretKeyRef:
-                            type: object
-                            required: [name, key]
-                            properties:
-                              name:
-                                type: string
-                              key:
-                                type: string
-                              namespace:
-                                type: string
-                              type:
-                                type: string
-                                enum: [number, boolean, json]
-                          genericKeyRef:
-                            type: object
-                            required: [apiVersion, kind, name, key]
-                            properties:
-                              apiVersion:
-                                type: string
-                              kind:
-                                type: string
-                              name:
-                                type: string
-                              key:
-                                type: string
-                              namespace:
-                                type: string
-                              type:
-                                type: string
-                                enum: [number, boolean, json]
-                templates:
-                  type: array
-                  items:
-                    type: object
-                    x-kubernetes-embedded-resource: true
-                    x-kubernetes-preserve-unknown-fields: true
-                strTemplates:
-                  type: array
-                  items:
-                    type: string
