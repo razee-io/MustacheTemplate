@@ -78,6 +78,18 @@ items:
           served: true
           # One and only one version must be marked as the storage version.
           storage: false
+          schema:
+            # openAPIV3Schema is the schema for validating custom objects.
+            openAPIV3Schema:
+              type: object
+              required: [spec]
+              properties:
+                spec:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+                status:
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
         - name: v1alpha2
           # Each version can be enabled/disabled by Served flag.
           served: true
