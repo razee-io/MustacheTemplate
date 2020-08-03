@@ -32,10 +32,10 @@ items:
           name: mustachetemplate-controller
         spec:
           serviceAccountName: razeedeploy-sa
-        securityContext:
-          runAsUser: {{{NODE_USER_ID}}}
-          runAsGroup: {{{NODE_GROUP_ID}}}
-          fsGroup: {{{NODE_GROUP_ID}}}
+          securityContext:
+            runAsUser: {{{NODE_USER_ID}}}
+            runAsGroup: {{{NODE_GROUP_ID}}}
+            fsGroup: {{{NODE_GROUP_ID}}}
           containers:
             - image: "quay.io/razee/mustachetemplate:{{{TRAVIS_TAG}}}"
               resources:
