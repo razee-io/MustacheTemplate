@@ -38,10 +38,6 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     });
     return o;
   }
-
-  static publicFunc() {
-    return true;
-  }
   
   async _parseTemplates(s) {
     if (!Array.isArray(s)) {
@@ -80,5 +76,4 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     let result = await this._parseTemplates(templatesArr);
     return result;
   }
-
 };

@@ -26,11 +26,12 @@ describe('#processTemplates', async function () {
       }
     }
   };
+  const noop = () => {};
   const kubeResourceMeta = {
-    uri: () => {},
+    uri: noop,
   };
   const logger = {
-    info: () => {},
+    info: noop,
   };
   it('should evaulate a mustache template correctly', async function () {
     const controller = new Controller({eventData, kubeResourceMeta, logger});
