@@ -15,11 +15,11 @@
  */
 
 const Mustache = require('mustache');
+const Handlebars = require('handlebars');
 const objectPath = require('object-path');
 const yaml = require('js-yaml');
 
 const { BaseTemplateController } = require('@razee/razeedeploy-core');
-
 
 module.exports = class MustacheTemplateController extends BaseTemplateController {
   constructor(params) {
@@ -39,6 +39,10 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     return o;
   }
 
+  static publicFunc() {
+    return true;
+  }
+  
   async _parseTemplates(s) {
     if (!Array.isArray(s)) {
       return Promise.reject({ statusCode: 500, message: '_parseTemplates expects an array' });
@@ -51,15 +55,26 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     return s;
   }
 
+  _renderTemplateItem(item, view, useHandlebars = false) {
+    if (useHandlebars) {
+      let template = Handlebars.compile(item);
+      return template(view);
+    }
+    return Mustache.render(item, view);
+  }
+
   async processTemplate(templates, view) {
     let customTags = objectPath.get(this.data, ['object', 'spec', 'custom-tags']);
+    let useHandlebars = objectPath.get(this.data, ['object', 'spec', 'use-handlebars']);
+    this._logger.info(useHandlebars ? 'MustacheTemplateController: Using handlebars library' : 'MustacheTemplateController: Using mustache library');
+
     let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
-    if (customTags) {
+    if (customTags) { 
       Mustache.tags = customTags;
     }
     templatesArr.forEach((templatesString, i) => {
-      templatesArr[i] = Mustache.render(templatesString, view);
+      templatesArr[i] = this._renderTemplateItem(templatesString, view, useHandlebars);
     });
     Mustache.tags = tempTags;
     let result = await this._parseTemplates(templatesArr);
