@@ -61,8 +61,8 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
 
   async processTemplate(templates, view) {
     let customTags = objectPath.get(this.data, ['object', 'spec', 'custom-tags']);
-    let useHandlebars = objectPath.get(this.data, ['object', 'spec', 'use-handlebars']);
-    this._logger.info(useHandlebars ? 'MustacheTemplateController: Using handlebars library' : 'MustacheTemplateController: Using mustache library');
+    let templateEngine = objectPath.get(this.data, 'object.spec.templateEngine', 'mustache').toLowerCase();
+    this.log.info(`MustacheTemplateController: Using ${templateEngine} template engine`);
 
     let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
