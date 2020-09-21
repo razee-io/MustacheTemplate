@@ -15,7 +15,7 @@
  */
 
 const Mustache = require('mustache');
-const Handlebars = require('handlebars')
+const Handlebars = require('handlebars');
 const HandlebarHelpers = require('./handlebar-helpers');
 const objectPath = require('object-path');
 const yaml = require('js-yaml');
@@ -65,7 +65,7 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     let templateEngine = objectPath.get(this.data, 'object.spec.templateEngine', 'mustache').toLowerCase();
     this.log.info(`MustacheTemplateController: Using ${templateEngine} template engine`);
 
-    if (templateEngine === 'handlebars') { Handlebars.registerHelper(HandlebarHelpers) };
+    if (templateEngine === 'handlebars') { Handlebars.registerHelper(HandlebarHelpers); }
 
     let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
