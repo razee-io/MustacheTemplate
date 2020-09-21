@@ -114,6 +114,21 @@ spec:
       type: array
       ...
 ```
+### Custom Tags
+
+**Path:** `.spec.templateEngine`
+
+**Description:** Specifying which templating engine to use, the available options are `mustache` and `handlebars`
+
+**Schema**
+```yaml
+properties:
+  templateEngine:
+    type: string
+    pattern: "^mustache$|^handlebars$"
+```
+
+**Default:** `'mustache'`
 
 ### Custom Tags
 

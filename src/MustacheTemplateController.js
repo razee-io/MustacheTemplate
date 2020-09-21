@@ -15,7 +15,8 @@
  */
 
 const Mustache = require('mustache');
-const Handlebars = require('handlebars');
+const Handlebars = require('handlebars')
+const HandlebarHelpers = require('./handlebar-helpers');
 const objectPath = require('object-path');
 const yaml = require('js-yaml');
 
@@ -51,8 +52,8 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     return s;
   }
 
-  _renderTemplateItem(item, view, useHandlebars = false) {
-    if (useHandlebars) {
+  _renderTemplateItem(item, view, engine = 'mustache') {
+    if (engine === 'handlebars') {
       let template = Handlebars.compile(item);
       return template(view);
     }
@@ -61,8 +62,10 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
 
   async processTemplate(templates, view) {
     let customTags = objectPath.get(this.data, ['object', 'spec', 'custom-tags']);
-    let useHandlebars = objectPath.get(this.data, ['object', 'spec', 'use-handlebars']);
-    this._logger.info(useHandlebars ? 'MustacheTemplateController: Using handlebars library' : 'MustacheTemplateController: Using mustache library');
+    let templateEngine = objectPath.get(this.data, 'object.spec.templateEngine', 'mustache').toLowerCase();
+    this.log.info(`MustacheTemplateController: Using ${templateEngine} template engine`);
+
+    if (templateEngine === 'handlebars') { Handlebars.registerHelper(HandlebarHelpers) };
 
     let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
@@ -70,7 +73,7 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
       Mustache.tags = customTags;
     }
     templatesArr.forEach((templatesString, i) => {
-      templatesArr[i] = this._renderTemplateItem(templatesString, view, useHandlebars);
+      templatesArr[i] = this._renderTemplateItem(templatesString, view, templateEngine);
     });
     Mustache.tags = tempTags;
     let result = await this._parseTemplates(templatesArr);

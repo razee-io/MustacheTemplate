@@ -40,12 +40,34 @@ describe('#processTemplates', async function () {
   });
 
   it('should evaulate a handlebars template correctly', async function () {
-    eventData.object.spec['use-handlebars'] = true;
+    eventData.object.spec['templateEngine'] = 'handlebars';
     eventData.object.spec.strTemplates = [              
       'apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: seed-config\ndata:\n  {{#if CRN_REGION}}\n  "region": {{ CRN_REGION }}\n  {{/if}}'
     ];
     const controller = new Controller({eventData, kubeResourceMeta, logger});
     const res = await controller.processTemplate(eventData.object.spec.strTemplates, { CRN_REGION: 'us-east'});
     assert.equal(res[0].data.region, 'us-east');
+  });
+
+  it('should evaulate a handlebars template correctly with an equality register helper', async function () {
+    eventData.object.spec['templateEngine'] = 'handlebars';
+    eventData.object.spec.strTemplates = [              
+      'apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: seed-config\ndata:\n  {{#if (eq CRN_REGION "us-west") }}\n  "region": {{ CRN_REGION }}\n  {{/if}}'
+    ];
+    const controller = new Controller({eventData, kubeResourceMeta, logger});
+    
+    const res = await controller.processTemplate(eventData.object.spec.strTemplates, { CRN_REGION: 'us-west'});
+    assert.equal(res[0].data.region, 'us-west');
+  });
+
+  it('should be able to assign a var in handlebars with the "assign" helper', async function () {
+    eventData.object.spec['templateEngine'] = 'handlebars';
+    eventData.object.spec.strTemplates = [              
+      'apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: seed-config\ndata:\n  {{ assign "GEO" "us-west" }}\n  "region": {{ GEO }}'
+    ];
+    const controller = new Controller({eventData, kubeResourceMeta, logger});
+    
+    const res = await controller.processTemplate(eventData.object.spec.strTemplates, { CRN_REGION: 'us-west'});
+    assert.equal(res[0].data.region, 'us-west');
   });
 });
