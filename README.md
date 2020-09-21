@@ -119,7 +119,8 @@ spec:
 
 **Path:** `.spec.templateEngine`
 
-**Description:** Specifying which templating engine to use, the available options are `mustache` and `handlebars`
+**Description:** Specifying which templating engine to use, the available
+options are `mustache` and `handlebars`
 
 **Schema:**
 
