@@ -71,3 +71,4 @@ describe('#processTemplates', async function () {
     assert.equal(res[0].data.region, 'us-west');
   });
 });
+});
