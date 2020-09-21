@@ -51,8 +51,8 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     return s;
   }
 
-  _renderTemplateItem(item, view, useHandlebars = false) {
-    if (useHandlebars) {
+  _renderTemplateItem(item, view, templateEngine) {
+    if (templateEngine === 'handlebars') {
       let template = Handlebars.compile(item);
       return template(view);
     }
