@@ -114,13 +114,15 @@ spec:
       type: array
       ...
 ```
+
 ### Templating Engine
 
 **Path:** `.spec.templateEngine`
 
 **Description:** Specifying which templating engine to use, the available options are `mustache` and `handlebars`
 
-**Schema**
+**Schema:**
+
 ```yaml
 properties:
   templateEngine:
