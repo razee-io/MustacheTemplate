@@ -114,7 +114,7 @@ spec:
       type: array
       ...
 ```
-### Custom Tags
+### Templating Engine
 
 **Path:** `.spec.templateEngine`
 
