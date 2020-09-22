@@ -71,17 +71,13 @@ describe('#processTemplates', async function () {
     assert.equal(res[0].data.region, 'us-west');
   });
 
-  it('should throw an error if we assign a number to a variable', async function () {
+  it('should throw succeed without any view data', async function () {
     eventData.object.spec['templateEngine'] = 'handlebars';
-    const num = 5;
     eventData.object.spec.strTemplates = [              
-      `apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: seed-config\ndata:\n  {{ assign ${num} "us-west" }}\n  "region": {{ GEO }}`
+      'apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: seed-config\ndata:\n  {{ assign "GEO" "us-west" }}\n  "region": {{ GEO }}'
     ];
     const controller = new Controller({eventData, kubeResourceMeta, logger});
-    try {
-      await controller.processTemplate(eventData.object.spec.strTemplates, { CRN_REGION: 'us-west'});
-    } catch(e) {
-      assert.throws(() => { throw new Error(e.message); }, `Cannot assign number: ${num}`);
-    }
+    const res = await controller.processTemplate(eventData.object.spec.strTemplates, {});
+    assert.equal(res[0].data.region, 'us-west');
   });
 });

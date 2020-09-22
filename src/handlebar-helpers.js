@@ -7,11 +7,10 @@ const objectPath = require('object-path');
 
 const helpers = {
   assign: function (varName, varValue, options) {
-    if (!isNumber(varName)) {
-      objectPath.set(options, ['data', 'root', varName], varValue);
-    } else {
-      throw Error(`Cannot assign number: ${varName}`); 
+    if (!objectPath.has(options, 'data.root')) {
+      objectPath.set(options, 'data.root', {});
     }
+    objectPath.set(options, ['data', 'root', varName], varValue);
   },
   eq: (v1, v2) => v1 === v2,
   ne: (v1, v2) => v1 !== v2,
@@ -26,9 +25,5 @@ const helpers = {
     return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
   }
 };
-
-function isNumber(x) {
-  return parseFloat(x) == x;
-}
 
 module.exports = helpers;
