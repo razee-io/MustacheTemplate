@@ -2,12 +2,12 @@
 // credit goes to https://stackoverflow.com/a/31632215 & https://stackoverflow.com/a/50427569
 //
 // TODO: maybe make this extensible via another CR field?
+
+const objectPath = require('object-path');
+
 const helpers = {
   assign: function (varName, varValue, options) {
-    if (!options.data.root) {
-      options.data.root = {};
-    }
-    options.data.root[varName] = varValue;
+    objectPath.set(options, `data.root.${varName}`, varValue);
   },
   eq: (v1, v2) => v1 === v2,
   ne: (v1, v2) => v1 !== v2,
