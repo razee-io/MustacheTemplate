@@ -7,7 +7,7 @@ const objectPath = require('object-path');
 
 const helpers = {
   assign: function (varName, varValue, options) {
-    objectPath.set(options, `data.root.${varName}`, varValue);
+    objectPath.set(options, ['data', 'root', varName], varValue);
   },
   eq: (v1, v2) => v1 === v2,
   ne: (v1, v2) => v1 !== v2,
