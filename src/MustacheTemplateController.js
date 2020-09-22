@@ -69,7 +69,9 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
 
     let templatesArr = await this._stringifyTemplates(templates);
     let tempTags = Mustache.tags;
-    if (customTags) {
+    if (customTags && templateEngine === 'handlebars') {
+      return Promise.reject({ statusCode: 500, message: 'unable to set custom-tags when using handlebars' });
+    } else if (customTags && templateEngine === 'mustache') {
       Mustache.tags = customTags;
     }
     templatesArr.forEach((templatesString, i) => {
