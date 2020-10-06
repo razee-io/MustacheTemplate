@@ -17,10 +17,10 @@
 const bunyan = require('bunyan');
 
 module.exports = {
-  'createLogger': function (name) {
+  'createLogger': function (name = 'MustacheTemplate') {
     
     const loggerConfig = {
-      name: name || 'MustacheTemplate',
+      name: name,
       streams: [{
         level: (process.env.LOG_LEVEL || 'info'),
         stream: process.stdout // log LOG_LEVEL and above to stdout
