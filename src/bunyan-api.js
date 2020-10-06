@@ -29,9 +29,9 @@ module.exports = {
     };
 
     try {
-      if ( process.env.LOG_APPENDAGE ) {
+      if ( process.env.LOG_APPEND_TO_ALL_JSON ) {
         try {
-          Object.assign(loggerConfig, JSON.parse( process.env.LOG_APPENDAGE ) );
+          Object.assign(loggerConfig, JSON.parse( process.env.LOG_APPEND_TO_ALL_JSON ) );
         } catch (error) {
           console.error( 'Failed to parse APPEND_TO_LOGS', error );
         }
