@@ -19,7 +19,7 @@ const kubeApiConfig = KubeApiConfig();
 
 const ControllerString = 'MustacheTemplate';
 const Controller = require(`./${ControllerString}Controller`);
-const log = require('./bunyan-api').createLogger(ControllerString);
+const log = require('./logger').createLogger(ControllerString);
 
 async function createClassicEventHandler(kc) {
   let result;
