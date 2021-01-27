@@ -23,6 +23,12 @@ const helpers = {
   },
   or() {
     return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+  },
+  split: function (data, delimiter) {
+    if (typeof data === 'string' && typeof delimiter === 'string') {
+      return data.split(delimiter);
+    }
+    return [data];
   }
 };
 
