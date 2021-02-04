@@ -100,6 +100,12 @@ spec:
         - required: [envFrom]
         - required: [env]
   properties:
+    clusterAuth:
+      type: object
+      ...
+    templateEngine:
+      type: string
+      ...
     custom-tags:
       type: array
       ...
