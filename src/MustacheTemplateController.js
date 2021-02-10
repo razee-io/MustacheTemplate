@@ -46,7 +46,7 @@ module.exports = class MustacheTemplateController extends BaseTemplateController
     }
     s.forEach((str, i) => {
       if (typeof str === 'string') {
-        s[i] = yaml.safeLoad(str);
+        s[i] = yaml.load(str);
       }
     });
     return s;
