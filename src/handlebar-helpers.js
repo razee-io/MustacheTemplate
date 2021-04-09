@@ -29,6 +29,14 @@ const helpers = {
       return data.split(delimiter);
     }
     return [data];
+  },
+  divide: function (v1, v2) {
+    if ( v2 != 0 ) {
+      return parseInt(v1 / v2);
+    }
+    else{
+      return "can not divide as v2 is 0"
+    }
   }
 };
 

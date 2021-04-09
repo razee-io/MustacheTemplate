@@ -92,4 +92,16 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.assign(data, 'what', options)
         assert.equal(options.data.root[data], 'what', "assign works correctly")
     });
+    it('should correctly divide 30 / 6', function () {
+        ret = HandlebarHelper.divide(30, 6)
+        assert.equal(5, ret, '30 divided by 6 and got 5');
+    });
+    it('should correctly divide 0 / 6', function () {
+        ret = HandlebarHelper.divide(0, 6)
+        assert.equal(0, ret, '0 can not divide by 6 and got 0');
+    });
+    it('should not correctly divide 30 / 0', function () {
+        ret = HandlebarHelper.divide(30, 0)
+        assert.equal('can not divide as v2 is 0', ret, '30 can not be divide by 0');
+    });
 });
