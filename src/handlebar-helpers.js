@@ -33,9 +33,8 @@ const helpers = {
   divide: function (x, y) {
     if ( typeof x === 'number' && typeof y === 'number' && y !== 0) {
       return parseInt(v1 / v2);
-    }
-    else{
-      return "can not divide as v2 is 0"
+    } else {
+      return -1;
     }
   }
 };
