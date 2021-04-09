@@ -98,7 +98,7 @@ describe('handlebar-helper', function () {
     });
     it('should correctly divide 0 / 6', function () {
         ret = HandlebarHelper.divide(0, 6)
-        assert.equal(0, ret, '0 can not divide by 6 and got 0');
+        assert.equal(0, ret, '0 divided by 6 and got 0');
     });
     it('should not correctly divide 30 / 0', function () {
         ret = HandlebarHelper.divide(30, 0)
