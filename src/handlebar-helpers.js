@@ -31,7 +31,7 @@ const helpers = {
     return [data];
   },
   divide: function (x, y) {
-    if ( v2 != 0 ) {
+    if ( typeof x === 'number' && typeof y === 'number' && y !== 0) {
       return parseInt(v1 / v2);
     }
     else{
