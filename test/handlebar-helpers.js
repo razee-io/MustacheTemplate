@@ -100,8 +100,28 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.divide(0, 6)
         assert.equal(0, ret, '0 divided by 6 and got 0');
     });
+    it('should correctly divide 10 / 3 and return 3', function () {
+        ret = HandlebarHelper.divide(10, 3)
+        assert.equal(3, ret, '10 divided by 3 and got 3');
+    });
+    it('should correctly divide 12.5 / 3 and return 4', function () {
+        ret = HandlebarHelper.divide(12.5, 3)
+        assert.equal(4, ret, '12.5 divided by 3 and got 4');
+    });
+    it('should correctly divide 0.66 / 3 and return 0', function () {
+        ret = HandlebarHelper.divide(0.66, 3)
+        assert.equal(0, ret, '0.66 divided by 3 and got 0');
+    });
     it('should not correctly divide 30 / 0', function () {
         ret = HandlebarHelper.divide(30, 0)
-        assert.equal('can not divide as v2 is 0', ret, '30 can not be divide by 0');
+        assert.equal('-1', ret, '30 can not be divided by 0');
+    });
+    it('should not correctly divide abc / 6', function () {
+        ret = HandlebarHelper.divide('abc', 6)
+        assert.equal('-1', ret, 'abc not a number and can not be divided by 6');
+    });
+    it('should not correctly divide 30 / abc', function () {
+        ret = HandlebarHelper.divide(30, 'abc')
+        assert.equal('-1', ret, '30 can not be divided by abc');
     });
 });
