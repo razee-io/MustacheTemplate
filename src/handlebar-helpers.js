@@ -30,7 +30,7 @@ const helpers = {
     }
     return [data];
   },
-  divide: function (v1, v2) {
+  divide: function (x, y) {
     if ( v2 != 0 ) {
       return parseInt(v1 / v2);
     }
