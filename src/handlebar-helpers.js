@@ -29,6 +29,13 @@ const helpers = {
       return data.split(delimiter);
     }
     return [data];
+  },
+  divide: function (x, y) {
+    if ( typeof x === 'number' && typeof y === 'number' && y !== 0) {
+      return parseInt(x / y);
+    } else {
+      return -1;
+    }
   }
 };
 
