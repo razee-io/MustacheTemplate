@@ -36,6 +36,12 @@ const helpers = {
     } else {
       return -1;
     }
+  },
+  add: function(x, y) {
+    if ( typeof x === 'number' && typeof y === 'number') {
+      return x + y;
+    }
+    return 0;
   }
 };
 
