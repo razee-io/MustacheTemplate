@@ -161,7 +161,7 @@ describe('handlebar-helper', function () {
         assert.equal(22, ret, '7 + 15 = 22');
     });
     it('should add 100 + 2000', function () {
-        ret = HandlebarHelper.add(7, 15)
+        ret = HandlebarHelper.add(100, 2000)
         assert.equal(2100, ret, '100 + 2000 = 2100');
     });
     it('should add 65.20 + 10', function () {
