@@ -126,35 +126,35 @@ describe('handlebar-helper', function () {
     });
     it('should not add 5 + abc', function () {
         ret = HandlebarHelper.add(5, 'abc')
-        assert.equal(0, ret, '5 can not be added to abc');
+        assert.equal(-1, ret, '5 can not be added to abc');
     });
     it('should not add  abc + 20', function () {
         ret = HandlebarHelper.add('abc', 20)
-        assert.equal(0, ret, 'abc can not be added to 20');
+        assert.equal(-1, ret, 'abc can not be added to 20');
     });
     it('should not add  abc + xyz', function () {
         ret = HandlebarHelper.add('abc', 'xyz')
-        assert.equal(0, ret, 'abc can not be added to xyz');
+        assert.equal(-1, ret, 'abc can not be added to xyz');
     });
     it('should not add  15 + ""', function () {
         ret = HandlebarHelper.add(15, '')
-        assert.equal(0, ret, '15 can not be added to ""');
+        assert.equal(-1, ret, '15 can not be added to ""');
     });
     it('should not add  "" + 101', function () {
         ret = HandlebarHelper.add('',101)
-        assert.equal(0, ret, '"" can not be added to 101');
+        assert.equal(-1, ret, '"" can not be added to 101');
     });
     it('should not add  undefined + 1001', function () {
         ret = HandlebarHelper.add(undefined,1001)
-        assert.equal(0, ret, 'undefined can not be added to 1001');
+        assert.equal(-1, ret, 'undefined can not be added to 1001');
     });
     it('should not add  555 + undefined', function () {
         ret = HandlebarHelper.add(555, undefined)
-        assert.equal(0, ret, '555 can not be added to undefined');
+        assert.equal(-1, ret, '555 can not be added to undefined');
     });
     it('should not add  undefined + undefined', function () {
         ret = HandlebarHelper.add(undefined, undefined)
-        assert.equal(0, ret, 'undefined can not be added to undefined');
+        assert.equal(-1, ret, 'undefined can not be added to undefined');
     });
     it('should add 7 + 15', function () {
         ret = HandlebarHelper.add(7, 15)
@@ -179,5 +179,17 @@ describe('handlebar-helper', function () {
     it('should add 0 + 9', function () {
         ret = HandlebarHelper.add(0, 9)
         assert.equal(9, ret, '0 + 9 = 9');
+    });
+    it('should add 0 + 0', function () {
+        ret = HandlebarHelper.add(0, 0)
+        assert.equal(0, ret, '0 + 0 = 0');
+    });
+    it('should add -20 + 20', function () {
+        ret = HandlebarHelper.add(-20, 20)
+        assert.equal(0, ret, '-20 + 20 = 0');
+    });
+    it('should add 19 + -20', function () {
+        ret = HandlebarHelper.add(19, -20)
+        assert.equal(-1, ret, '19 + -20 = -1');
     });
 });
