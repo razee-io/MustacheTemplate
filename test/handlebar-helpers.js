@@ -124,4 +124,72 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.divide(30, 'abc')
         assert.equal('-1', ret, '30 can not be divided by abc');
     });
+    it('should not add 5 + abc', function () {
+        ret = HandlebarHelper.add(5, 'abc')
+        assert.equal(-1, ret, '5 can not be added to abc');
+    });
+    it('should not add  abc + 20', function () {
+        ret = HandlebarHelper.add('abc', 20)
+        assert.equal(-1, ret, 'abc can not be added to 20');
+    });
+    it('should not add  abc + xyz', function () {
+        ret = HandlebarHelper.add('abc', 'xyz')
+        assert.equal(-1, ret, 'abc can not be added to xyz');
+    });
+    it('should not add  15 + ""', function () {
+        ret = HandlebarHelper.add(15, '')
+        assert.equal(-1, ret, '15 can not be added to ""');
+    });
+    it('should not add  "" + 101', function () {
+        ret = HandlebarHelper.add('',101)
+        assert.equal(-1, ret, '"" can not be added to 101');
+    });
+    it('should not add  undefined + 1001', function () {
+        ret = HandlebarHelper.add(undefined,1001)
+        assert.equal(-1, ret, 'undefined can not be added to 1001');
+    });
+    it('should not add  555 + undefined', function () {
+        ret = HandlebarHelper.add(555, undefined)
+        assert.equal(-1, ret, '555 can not be added to undefined');
+    });
+    it('should not add  undefined + undefined', function () {
+        ret = HandlebarHelper.add(undefined, undefined)
+        assert.equal(-1, ret, 'undefined can not be added to undefined');
+    });
+    it('should add 7 + 15', function () {
+        ret = HandlebarHelper.add(7, 15)
+        assert.equal(22, ret, '7 + 15 = 22');
+    });
+    it('should add 100 + 2000', function () {
+        ret = HandlebarHelper.add(100, 2000)
+        assert.equal(2100, ret, '100 + 2000 = 2100');
+    });
+    it('should add 65.20 + 10', function () {
+        ret = HandlebarHelper.add(65.20, 10)
+        assert.equal(75.20, ret, '65.20 + 10 = 75.20');
+    });
+    it('should add 65.20 + 105.35', function () {
+        ret = HandlebarHelper.add(65.20, 105.35)
+        assert.equal(170.55, ret, '65.20 + 105.35 = 170.55');
+    });
+    it('should add 3 + 0', function () {
+        ret = HandlebarHelper.add(3, 0)
+        assert.equal(3, ret, '3 + 0 = 3');
+    });
+    it('should add 0 + 9', function () {
+        ret = HandlebarHelper.add(0, 9)
+        assert.equal(9, ret, '0 + 9 = 9');
+    });
+    it('should add 0 + 0', function () {
+        ret = HandlebarHelper.add(0, 0)
+        assert.equal(0, ret, '0 + 0 = 0');
+    });
+    it('should add -20 + 20', function () {
+        ret = HandlebarHelper.add(-20, 20)
+        assert.equal(0, ret, '-20 + 20 = 0');
+    });
+    it('should add 19 + -20', function () {
+        ret = HandlebarHelper.add(19, -20)
+        assert.equal(-1, ret, '19 + -20 = -1');
+    });
 });
