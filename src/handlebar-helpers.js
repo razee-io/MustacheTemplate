@@ -23,6 +23,25 @@ const helpers = {
   },
   or() {
     return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+  },
+  split: function (data, delimiter) {
+    if (typeof data === 'string' && typeof delimiter === 'string') {
+      return data.split(delimiter);
+    }
+    return [data];
+  },
+  divide: function (x, y) {
+    if ( typeof x === 'number' && typeof y === 'number' && y !== 0) {
+      return parseInt(x / y);
+    } else {
+      return -1;
+    }
+  },
+  add: function(x, y) {
+    if ( typeof x === 'number' && typeof y === 'number') {
+      return x + y;
+    }
+    return -1;
   }
 };
 
