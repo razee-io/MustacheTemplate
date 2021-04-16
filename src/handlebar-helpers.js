@@ -42,7 +42,25 @@ const helpers = {
       return x + y;
     }
     return -1;
-  }
+  },
+  substring: function (data, startIndex, endIndex) {
+    if ( typeof data  === 'string' && typeof startIndex === 'number' && typeof endIndex === 'number') {
+      return data.substring(startIndex, endIndex);
+    }
+    if ( typeof data  === 'string' && typeof startIndex === 'number') {
+      return data.substring(startIndex);
+    }
+    return ''
+  },
+  includes: function (arr, valueToFind, fromIndex) {
+    if ( Array.isArray(arr) && valueToFind !== 'undefined' && typeof fromIndex === 'number') {
+        return arr.includes(valueToFind, fromIndex)
+    }
+    if ( Array.isArray(arr) && typeof valueToFind !== 'undefined') {
+        return arr.includes(valueToFind)
+    }
+    return false
+  }  
 };
 
 module.exports = helpers;
