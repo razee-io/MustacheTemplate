@@ -44,22 +44,19 @@ const helpers = {
     return -1;
   },
   substring: function (data, startIndex, endIndex) {
-    if ( typeof data  === 'string' && typeof startIndex === 'number' && typeof endIndex === 'number') {
+    startIndex = ( typeof startIndex === 'number' ) ? startIndex : undefined;
+    endIndex = ( typeof endIndex === 'number' ) ? endIndex : undefined;
+    if ( typeof data  === 'string') {
       return data.substring(startIndex, endIndex);
     }
-    if ( typeof data  === 'string' && typeof startIndex === 'number') {
-      return data.substring(startIndex);
-    }
-    return ''
+    return data;
   },
   includes: function (arr, valueToFind, fromIndex) {
-    if ( Array.isArray(arr) && valueToFind !== 'undefined' && typeof fromIndex === 'number') {
-        return arr.includes(valueToFind, fromIndex)
+    fromIndex = ( typeof fromIndex === 'number' ) ? fromIndex : undefined;
+    if ( Array.isArray(arr) && valueToFind !== 'undefined') {
+      return arr.includes(valueToFind, fromIndex);
     }
-    if ( Array.isArray(arr) && typeof valueToFind !== 'undefined') {
-        return arr.includes(valueToFind)
-    }
-    return false
+    return false;
   }  
 };
 

@@ -192,18 +192,18 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.add(19, -20)
         assert.equal(-1, ret, '19 + -20 = -1');
     });
-    //--- substring tests
-    it('should return an empty string when all inputs are undefined', function () {
+    //--- substring() tests
+    it('should return undefined when all inputs are undefined', function () {
         ret = HandlebarHelper.substring(undefined,undefined,undefined)
-        assert.equal('', ret, 'unable to get substring for undefined inputs');
+        assert.equal(undefined, ret, 'unable to get substring for undefined inputs');
     });
-    it('should return an empty string when startIndex and endIndex are undefined', function () {
-        ret = HandlebarHelper.substring('hello-world!',undefined,undefined)
-        assert.equal('', ret, 'unable to get substring for undefined indexes');
-    });
-    it('should return an empty string when input string is undefined', function () {
+    it('should return undefined when input string is undefined', function () {
         ret = HandlebarHelper.substring(undefined,3,9)
-        assert.equal('', ret, 'unable to get substring from undefined input string');
+        assert.equal(undefined, ret, 'unable to get substring from undefined input string');
+    });
+    it('should return the input string when startIndex and endIndex are undefined', function () {
+        ret = HandlebarHelper.substring('hello-world!',undefined,undefined)
+        assert.equal('hello-world!', ret, 'substring is "hello-world!"');
     });
     it('should return substring, when endIndex is undefined', function () {
         ret = HandlebarHelper.substring('hello-world!',5)
@@ -237,7 +237,7 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.substring('hello-world!',-100,500)
         assert.equal('hello-world!', ret, 'substring is "hello-world!"');
     });
-    //--- includes tests
+    //--- includes() tests
     it('should return false when all inputs are undefined', function () {
         ret = HandlebarHelper.includes(undefined,undefined,undefined)
         assert.equal(false, ret, 'includes returns false for undefined inputs');
@@ -313,5 +313,13 @@ describe('handlebar-helper', function () {
     it('should return false when numeric array is empty', function () {
         ret = HandlebarHelper.includes([],250,0)
         assert.equal(false, ret, '250 not in []');
+    });
+    it('should return false when valueToFind in arr AND indexFrom = arr.length', function () {
+        ret = HandlebarHelper.includes([11,35,80,120],80,4)
+        assert.equal(false, ret, '80 in [11,35,80,120] but indexFrom = arr.length');
+    });
+    it('should return false when valueToFind in arr AND indexFrom > arr.length', function () {
+        ret = HandlebarHelper.includes([11,35,80,120],11,5)
+        assert.equal(false, ret, '11 in [11,35,80,120] but indexFrom > arr.length');
     });
 });
