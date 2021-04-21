@@ -291,11 +291,11 @@ describe('handlebar-helper', function () {
         assert.equal(true, ret, '3 in [3,4,50,100]');
     });
     it('should return true when all inputs are valid values and valueToFind is in numeric array', function () {
-        ret = HandlebarHelper.includes([1000,0,235,65,5],'us',1000)
-        assert.equal(true, ret, '1000 in [1000,0,235,65,5]');
+        ret = HandlebarHelper.includes([1000,0,235,65,5],235,0)
+        assert.equal(true, ret, '235 in [1000,0,235,65,5]');
     });
     it('should return true when all inputs are valid values and valueToFind is in numeric array', function () {
-        ret = HandlebarHelper.includes([1000,0,235,65,5],'us',5)
+        ret = HandlebarHelper.includes([1000,0,235,65,5],5,0)
         assert.equal(true, ret, '5 in [1000,0,235,65,5]');
     });
     it('should return false when valueToFind is not in numeric array', function () {
