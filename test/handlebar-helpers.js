@@ -322,4 +322,8 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.includes([11,35,80,120],11,5)
         assert.equal(false, ret, '11 in [11,35,80,120] but indexFrom > arr.length');
     });
+    it('should calculate the sha256 hash', function() {
+        ret = HandlebarHelper.sha256("message")
+        assert.equal(ret, "ab530a13e45914982b79f9b7e3fba994cfd1f3fb22f71cea1afbf02b460c6d1d", 'sha256 of word message')
+    })
 });

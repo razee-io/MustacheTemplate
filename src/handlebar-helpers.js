@@ -4,6 +4,7 @@
 // TODO: maybe make this extensible via another CR field?
 
 const objectPath = require('object-path');
+const sjcl = require("sjcl")
 
 const helpers = {
   assign: function (varName, varValue, options) {
@@ -57,7 +58,11 @@ const helpers = {
       return arr.includes(valueToFind, fromIndex);
     }
     return false;
-  }  
+  },
+  sha256: function(data) {
+    bitArray = sjcl.hash.sha256.hash(data)
+    return sjcl.codec.hex.fromBits(bitArray)
+  }
 };
 
 module.exports = helpers;
