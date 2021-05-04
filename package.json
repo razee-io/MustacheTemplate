@@ -46,8 +46,7 @@
     "js-yaml": "^4.1.0",
     "mustache": "^4.2.0",
     "object-path": "^0.11.5",
-    "pino": "^6.11.3",
-    "sjcl": "^1.0.8"
+    "pino": "^6.11.3"
   },
   "devDependencies": {
     "chai": "^4.3.4",

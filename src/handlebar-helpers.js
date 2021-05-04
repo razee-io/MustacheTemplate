@@ -4,7 +4,7 @@
 // TODO: maybe make this extensible via another CR field?
 
 const objectPath = require('object-path');
-const sjcl = require("sjcl")
+const crypto = require('crypto');
 
 const helpers = {
   assign: function (varName, varValue, options) {
@@ -60,8 +60,8 @@ const helpers = {
     return false;
   },
   sha256: function(data) {
-    bitArray = sjcl.hash.sha256.hash(data)
-    return sjcl.codec.hex.fromBits(bitArray)
+    const hash = crypto.createHash('sha256').update(data).digest('hex');
+    return hash;
   }
 };
 
