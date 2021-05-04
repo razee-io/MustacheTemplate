@@ -325,5 +325,9 @@ describe('handlebar-helper', function () {
     it('should calculate the sha256 hash', function() {
         ret = HandlebarHelper.sha256("message")
         assert.equal(ret, "ab530a13e45914982b79f9b7e3fba994cfd1f3fb22f71cea1afbf02b460c6d1d", 'sha256 of word message')
-    })
+    });
+    it('should check the input for sha256 hash', function() {
+        ret = HandlebarHelper.sha256(356)
+        assert.equal(ret, "", 'sha256 of integer is not calculated')
+    });
 });

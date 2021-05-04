@@ -60,6 +60,9 @@ const helpers = {
     return false;
   },
   sha256: function(data) {
+    if (typeof data !== 'string') {
+      return ""
+    }
     const hash = crypto.createHash('sha256').update(data).digest('hex');
     return hash;
   }
