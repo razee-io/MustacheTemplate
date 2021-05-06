@@ -4,6 +4,7 @@
 // TODO: maybe make this extensible via another CR field?
 
 const objectPath = require('object-path');
+const crypto = require('crypto');
 
 const helpers = {
   assign: function (varName, varValue, options) {
@@ -57,7 +58,14 @@ const helpers = {
       return arr.includes(valueToFind, fromIndex);
     }
     return false;
-  }  
+  },
+  sha256: function(data) {
+    if (typeof data !== 'string') {
+      return '';
+    }
+    const hash = crypto.createHash('sha256').update(data).digest('hex');
+    return hash;
+  }
 };
 
 module.exports = helpers;
