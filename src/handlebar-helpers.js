@@ -68,7 +68,7 @@ const helpers = {
   },
   concat: function(arr){
     if (Array.isArray(arr)){
-      return ''.concat(...arr)
+      return ''.concat(...arr);
     }
     return -1;
   }
