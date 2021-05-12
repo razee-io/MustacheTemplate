@@ -330,4 +330,29 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.sha256(356)
         assert.equal(ret, '', 'sha256 of integer is not calculated')
     });
+    //--- concat() tests
+    it('should return concatenate string when array has only 1 string', function () {
+        ret = HandlebarHelper.concat(['Hello'])
+        assert.equal("Hello", ret, 'concat string is "Hello"');
+    });
+    it('should return concatenate string when array has 2 strings', function () {
+        ret = HandlebarHelper.concat(["Hello ","World"])
+        assert.equal("Hello World", ret, 'concat string is "Hello World"');
+    });
+    it('should return concatenate string when 3 inputs are string', function () {
+        ret = HandlebarHelper.concat(["Hello ","World ","!!"])
+        assert.equal("Hello World !!", ret, 'concat string is "Hello World !!"');
+    });
+    it('should not throw error when 0 inputs are passed in array', function () {
+        ret = HandlebarHelper.concat([])
+        assert.equal("", ret, 'empty array');
+    });
+    it('should concatenate and return string when a string and a number passed in array', function () {
+        ret = HandlebarHelper.concat(["Hello ", 123])
+        assert.equal("Hello 123", ret, 'concat string is "Hello 123"');
+    });
+    it('should concatenate and return string when combination of string, number and string passed in array', function () {
+        ret = HandlebarHelper.concat(["Hello ", 123, " Hello"])
+        assert.equal("Hello 123 Hello", ret, 'concat string is "Hello 123 Hello"');
+    });
 });
