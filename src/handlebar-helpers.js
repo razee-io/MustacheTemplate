@@ -70,7 +70,6 @@ const helpers = {
     let flat = arr.flat();
     return ''.concat(...flat); 
   }
-  }
 };
 
 module.exports = helpers;
