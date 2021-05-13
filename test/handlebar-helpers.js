@@ -330,4 +330,45 @@ describe('handlebar-helper', function () {
         ret = HandlebarHelper.sha256(356)
         assert.equal(ret, '', 'sha256 of integer is not calculated')
     });
+    //--- concat() tests
+    it('should return concatenate string when array has only 1 string', function () {
+        ret = HandlebarHelper.concat(['Hello'])
+        assert.equal('Hello', ret, 'concat string is "Hello"');
+    });
+    it('should return concatenate string when array has 2 strings', function () {
+        ret = HandlebarHelper.concat(['Hello ','World'])
+        assert.equal('Hello World', ret, 'concat string is "Hello World"');
+    });
+    it('should return concatenate string when array has 3 strings', function () {
+        ret = HandlebarHelper.concat(['Hello ','World ','!!'])
+        assert.equal('Hello World !!', ret, 'concat string is "Hello World !!"');
+    });
+    it('should not throw error when 0 inputs are passed in array', function () {
+        ret = HandlebarHelper.concat([])
+        assert.equal('', ret, 'empty array');
+    });
+    it('should concatenate and return string when non strings are passed in array', function () {
+        ret = HandlebarHelper.concat(['Hello ', 123, ' ', true])
+        assert.equal('Hello 123 true', ret, 'concat string is "Hello 123 true"');
+    });
+    it('should return concatenate string when params have only 1 string', function () {
+        ret = HandlebarHelper.concat('Hello')
+        assert.equal('Hello', ret, 'concat string is "Hello"');
+    });
+    it('should return concatenate string when params have 2 strings', function () {
+        ret = HandlebarHelper.concat('Hello ','World')
+        assert.equal('Hello World', ret, 'concat string is "Hello World"');
+    });
+    it('should return concatenate string when params have 3 strings', function () {
+        ret = HandlebarHelper.concat('Hello ','World ','!!')
+        assert.equal('Hello World !!', ret, 'concat string is "Hello World !!"');
+    });
+    it('should not throw error when 0 params are passed in', function () {
+        ret = HandlebarHelper.concat()
+        assert.equal('', ret, 'empty params');
+    });
+    it('should concatenate and return string when a non strings are passed in params', function () {
+        ret = HandlebarHelper.concat('Hello ', 123, ' ', true)
+        assert.equal('Hello 123 true', ret, 'concat string is "Hello 123 true"');
+    });
 });

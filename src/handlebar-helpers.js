@@ -65,6 +65,10 @@ const helpers = {
     }
     const hash = crypto.createHash('sha256').update(data).digest('hex');
     return hash;
+  },
+  concat: function(...arr) {
+    let flat = arr.flat();
+    return ''.concat(...flat); 
   }
 };
 
