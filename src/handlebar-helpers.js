@@ -32,43 +32,44 @@ const helpers = {
     return [data];
   },
   divide: function (x, y) {
-    if ( typeof x === 'number' && typeof y === 'number' && y !== 0) {
+    if (typeof x === 'number' && typeof y === 'number' && y !== 0) {
       return parseInt(x / y);
     } else {
       return -1;
     }
   },
-  add: function(x, y) {
-    if ( typeof x === 'number' && typeof y === 'number') {
+  add: function (x, y) {
+    if (typeof x === 'number' && typeof y === 'number') {
       return x + y;
     }
     return -1;
   },
   substring: function (data, startIndex, endIndex) {
-    startIndex = ( typeof startIndex === 'number' ) ? startIndex : undefined;
-    endIndex = ( typeof endIndex === 'number' ) ? endIndex : undefined;
-    if ( typeof data  === 'string') {
+    startIndex = (typeof startIndex === 'number') ? startIndex : undefined;
+    endIndex = (typeof endIndex === 'number') ? endIndex : undefined;
+    if (typeof data === 'string') {
       return data.substring(startIndex, endIndex);
     }
     return data;
   },
   includes: function (arr, valueToFind, fromIndex) {
-    fromIndex = ( typeof fromIndex === 'number' ) ? fromIndex : undefined;
-    if ( Array.isArray(arr) && valueToFind !== 'undefined') {
+    fromIndex = (typeof fromIndex === 'number') ? fromIndex : undefined;
+    if (Array.isArray(arr) && valueToFind !== 'undefined') {
       return arr.includes(valueToFind, fromIndex);
     }
     return false;
   },
-  sha256: function(data) {
+  sha256: function (data) {
     if (typeof data !== 'string') {
       return '';
     }
     const hash = crypto.createHash('sha256').update(data).digest('hex');
     return hash;
   },
-  concat: function(...arr) {
+  concat: function (...arr) {
+    arr.pop();
     let flat = arr.flat();
-    return ''.concat(...flat); 
+    return ''.concat(...flat);
   }
 };
 
