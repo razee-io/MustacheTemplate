@@ -141,11 +141,11 @@ describe('handlebar-helper', function () {
         assert.equal(-1, ret, '15 can not be added to ""');
     });
     it('should not add  "" + 101', function () {
-        ret = HandlebarHelper.add('',101)
+        ret = HandlebarHelper.add('', 101)
         assert.equal(-1, ret, '"" can not be added to 101');
     });
     it('should not add  undefined + 1001', function () {
-        ret = HandlebarHelper.add(undefined,1001)
+        ret = HandlebarHelper.add(undefined, 1001)
         assert.equal(-1, ret, 'undefined can not be added to 1001');
     });
     it('should not add  555 + undefined', function () {
@@ -194,181 +194,188 @@ describe('handlebar-helper', function () {
     });
     //--- substring() tests
     it('should return undefined when all inputs are undefined', function () {
-        ret = HandlebarHelper.substring(undefined,undefined,undefined)
+        ret = HandlebarHelper.substring(undefined, undefined, undefined)
         assert.equal(undefined, ret, 'unable to get substring for undefined inputs');
     });
     it('should return undefined when input string is undefined', function () {
-        ret = HandlebarHelper.substring(undefined,3,9)
+        ret = HandlebarHelper.substring(undefined, 3, 9)
         assert.equal(undefined, ret, 'unable to get substring from undefined input string');
     });
     it('should return the input string when startIndex and endIndex are undefined', function () {
-        ret = HandlebarHelper.substring('hello-world!',undefined,undefined)
+        ret = HandlebarHelper.substring('hello-world!', undefined, undefined)
         assert.equal('hello-world!', ret, 'substring is "hello-world!"');
     });
     it('should return substring, when endIndex is undefined', function () {
-        ret = HandlebarHelper.substring('hello-world!',5)
+        ret = HandlebarHelper.substring('hello-world!', 5)
         assert.equal('-world!', ret, 'substring is "-world!"');
     });
     it('should return substring, when a valid input string and indexes are provided', function () {
-        ret = HandlebarHelper.substring('hello-world!',0,7)
+        ret = HandlebarHelper.substring('hello-world!', 0, 7)
         assert.equal('hello-w', ret, 'substring is "hello-w"');
     });
     it('should return substring, when: (0 < startIndex < data.length) and (startIndex < endIndex < data.length)', function () {
-        ret = HandlebarHelper.substring('hello-world!',2,8)
+        ret = HandlebarHelper.substring('hello-world!', 2, 8)
         assert.equal('llo-wo', ret, 'substring is "llo-wo"');
     });
     it('should return substring, swapping the values of startIndex and endIndex when startIndex > endIndex', function () {
-        ret = HandlebarHelper.substring('hello-world!',11,5)
+        ret = HandlebarHelper.substring('hello-world!', 11, 5)
         assert.equal('-world', ret, 'substring is "-world"');
     });
     it('should return substring, when endIndex > data.length', function () {
-        ret = HandlebarHelper.substring('hello-world!',7,25)
+        ret = HandlebarHelper.substring('hello-world!', 7, 25)
         assert.equal('orld!', ret, 'substring is "orld!"');
     });
     it('should return substring, when startIndex < 0', function () {
-        ret = HandlebarHelper.substring('hello-world!',-100,6)
+        ret = HandlebarHelper.substring('hello-world!', -100, 6)
         assert.equal('hello-', ret, 'substring is "hello-"');
     });
     it('should return an empty string as substring, when startIndex = endIndex', function () {
-        ret = HandlebarHelper.substring('hello-world!',2,2)
+        ret = HandlebarHelper.substring('hello-world!', 2, 2)
         assert.equal('', ret, 'substring is an empty string');
     });
     it('should return the whole input string as substring, when startIndex < 0 and endIndex > str.length', function () {
-        ret = HandlebarHelper.substring('hello-world!',-100,500)
+        ret = HandlebarHelper.substring('hello-world!', -100, 500)
         assert.equal('hello-world!', ret, 'substring is "hello-world!"');
     });
     //--- includes() tests
     it('should return false when all inputs are undefined', function () {
-        ret = HandlebarHelper.includes(undefined,undefined,undefined)
+        ret = HandlebarHelper.includes(undefined, undefined, undefined)
         assert.equal(false, ret, 'includes returns false for undefined inputs');
     });
     it('should return false when valueToFind and indexFrom are undefined', function () {
-        ret = HandlebarHelper.includes(["ca","eu","eq","us"],undefined,undefined)
+        ret = HandlebarHelper.includes(["ca", "eu", "eq", "us"], undefined, undefined)
         assert.equal(false, ret, 'includes returns false when valueToFind and indexFrom are undefined');
     });
     it('should return true when valueToFind is in string array and indexFrom is undefined', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'ca',undefined)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'ca', undefined)
         assert.equal(true, ret, 'ca in ["ca","eu","eq","us"]');
     });
     it('should return true when inputs are all valid values and valueToFind is in string array', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'ca',0)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'ca', 0)
         assert.equal(true, ret, 'ca in ["ca","eu","eq","us"]');
     });
     it('should return true when inputs are all valid values and valueToFind is in string array', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'us',0)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'us', 0)
         assert.equal(true, ret, 'us in ["ca","eu","eq","us"]');
     });
     it('should return false when valueToFind letter case is uppercase', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'CA',0)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'CA', 0)
         assert.equal(false, ret, 'CA not in ["ca","eu","eq","us"]');
     });
     it('should return false when valueToFind letter case has a mix of lowercase and uppercase letters', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'cA',0)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'cA', 0)
         assert.equal(false, ret, 'cA not in ["ca","eu","eq","us"]');
     });
     it('should return false when valueToFind is in string array but its position in array is < indexFrom', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'ca',1)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'ca', 1)
         assert.equal(false, ret, 'ca not in ["ca","eu","eq","us"] if when indexFrom = 1');
     });
     it('should return true when valueToFind is in string array and indexFrom < 0', function () {
-        ret = HandlebarHelper.includes(['ca','eu','eq','us'],'ca',-4)
+        ret = HandlebarHelper.includes(['ca', 'eu', 'eq', 'us'], 'ca', -4)
         assert.equal(true, ret, 'ca in ["ca","eu","eq","us"] when indexFrom < 0');
     });
     it('should return false when string array is empty', function () {
-        ret = HandlebarHelper.includes([],'us',0)
+        ret = HandlebarHelper.includes([], 'us', 0)
         assert.equal(false, ret, 'us not in []');
     });
     it('should return false when valueToFind and indexFrom are undefined', function () {
-        ret = HandlebarHelper.includes([3,4,50,100],undefined,undefined)
+        ret = HandlebarHelper.includes([3, 4, 50, 100], undefined, undefined)
         assert.equal(false, ret, 'includes returns false when valueToFind and indexFrom are undefined');
     });
     it('should return true when valueToFind is in numeric array and indexFrom is undefined', function () {
-        ret = HandlebarHelper.includes([3,4,50,100],4,undefined)
+        ret = HandlebarHelper.includes([3, 4, 50, 100], 4, undefined)
         assert.equal(true, ret, '4 in [3,4,50,100]');
     });
     it('should return true when inputs are all valid values and valueToFind is in numeric array', function () {
-        ret = HandlebarHelper.includes([3,4,50,100],3,0)
+        ret = HandlebarHelper.includes([3, 4, 50, 100], 3, 0)
         assert.equal(true, ret, '3 in [3,4,50,100]');
     });
     it('should return true when all inputs are valid values and valueToFind is in numeric array', function () {
-        ret = HandlebarHelper.includes([1000,0,235,65,5],235,0)
+        ret = HandlebarHelper.includes([1000, 0, 235, 65, 5], 235, 0)
         assert.equal(true, ret, '235 in [1000,0,235,65,5]');
     });
     it('should return true when all inputs are valid values and valueToFind is in numeric array', function () {
-        ret = HandlebarHelper.includes([1000,0,235,65,5],5,0)
+        ret = HandlebarHelper.includes([1000, 0, 235, 65, 5], 5, 0)
         assert.equal(true, ret, '5 in [1000,0,235,65,5]');
     });
     it('should return false when valueToFind is not in numeric array', function () {
-        ret = HandlebarHelper.includes([1000,0,235,65,78],77,0)
+        ret = HandlebarHelper.includes([1000, 0, 235, 65, 78], 77, 0)
         assert.equal(false, ret, '77 not in [1000,0,235,65,78]');
     });
     it('should return false when valueToFind is in numeric array but its position in array is < indexFrom', function () {
-        ret = HandlebarHelper.includes([3,4,50,100],4,2)
+        ret = HandlebarHelper.includes([3, 4, 50, 100], 4, 2)
         assert.equal(false, ret, '4 not in [3,4,50,100] when indexFrom = 2');
     });
     it('should return true when valueToFind is in numeric array and indexFrom < 0', function () {
-        ret = HandlebarHelper.includes([3,4,50,100],3,-4)
+        ret = HandlebarHelper.includes([3, 4, 50, 100], 3, -4)
         assert.equal(true, ret, '3 in [3,4,50,100] when indexFrom < 0');
     });
     it('should return false when numeric array is empty', function () {
-        ret = HandlebarHelper.includes([],250,0)
+        ret = HandlebarHelper.includes([], 250, 0)
         assert.equal(false, ret, '250 not in []');
     });
     it('should return false when valueToFind in arr AND indexFrom = arr.length', function () {
-        ret = HandlebarHelper.includes([11,35,80,120],80,4)
+        ret = HandlebarHelper.includes([11, 35, 80, 120], 80, 4)
         assert.equal(false, ret, '80 in [11,35,80,120] but indexFrom = arr.length');
     });
     it('should return false when valueToFind in arr AND indexFrom > arr.length', function () {
-        ret = HandlebarHelper.includes([11,35,80,120],11,5)
+        ret = HandlebarHelper.includes([11, 35, 80, 120], 11, 5)
         assert.equal(false, ret, '11 in [11,35,80,120] but indexFrom > arr.length');
     });
-    it('should calculate the sha256 hash', function() {
+    it('should calculate the sha256 hash', function () {
         ret = HandlebarHelper.sha256('message')
         assert.equal(ret, 'ab530a13e45914982b79f9b7e3fba994cfd1f3fb22f71cea1afbf02b460c6d1d', 'sha256 of word message')
     });
-    it('should check the input for sha256 hash', function() {
+    it('should check the input for sha256 hash', function () {
         ret = HandlebarHelper.sha256(356)
         assert.equal(ret, '', 'sha256 of integer is not calculated')
     });
     //--- concat() tests
+    let handlebarsConcatData = {
+        lookupProperty: () => { },
+        name: 'concat',
+        hash: {},
+        data: { root: { someEnv: 'theEnvsData' } },
+        loc: { start: { line: 8, column: 11 }, end: { line: 8, column: 76 } }
+    };
     it('should return concatenate string when array has only 1 string', function () {
-        ret = HandlebarHelper.concat(['Hello'])
+        ret = HandlebarHelper.concat(['Hello'], handlebarsConcatData)
         assert.equal('Hello', ret, 'concat string is "Hello"');
     });
     it('should return concatenate string when array has 2 strings', function () {
-        ret = HandlebarHelper.concat(['Hello ','World'])
+        ret = HandlebarHelper.concat(['Hello ', 'World'], handlebarsConcatData)
         assert.equal('Hello World', ret, 'concat string is "Hello World"');
     });
     it('should return concatenate string when array has 3 strings', function () {
-        ret = HandlebarHelper.concat(['Hello ','World ','!!'])
+        ret = HandlebarHelper.concat(['Hello ', 'World ', '!!'], handlebarsConcatData)
         assert.equal('Hello World !!', ret, 'concat string is "Hello World !!"');
     });
     it('should not throw error when 0 inputs are passed in array', function () {
-        ret = HandlebarHelper.concat([])
+        ret = HandlebarHelper.concat([], handlebarsConcatData)
         assert.equal('', ret, 'empty array');
     });
     it('should concatenate and return string when non strings are passed in array', function () {
-        ret = HandlebarHelper.concat(['Hello ', 123, ' ', true])
+        ret = HandlebarHelper.concat(['Hello ', 123, ' ', true], handlebarsConcatData)
         assert.equal('Hello 123 true', ret, 'concat string is "Hello 123 true"');
     });
     it('should return concatenate string when params have only 1 string', function () {
-        ret = HandlebarHelper.concat('Hello')
+        ret = HandlebarHelper.concat('Hello', handlebarsConcatData)
         assert.equal('Hello', ret, 'concat string is "Hello"');
     });
     it('should return concatenate string when params have 2 strings', function () {
-        ret = HandlebarHelper.concat('Hello ','World')
+        ret = HandlebarHelper.concat('Hello ', 'World', handlebarsConcatData)
         assert.equal('Hello World', ret, 'concat string is "Hello World"');
     });
     it('should return concatenate string when params have 3 strings', function () {
-        ret = HandlebarHelper.concat('Hello ','World ','!!')
+        ret = HandlebarHelper.concat('Hello ', 'World ', '!!', handlebarsConcatData)
         assert.equal('Hello World !!', ret, 'concat string is "Hello World !!"');
     });
     it('should not throw error when 0 params are passed in', function () {
-        ret = HandlebarHelper.concat()
+        ret = HandlebarHelper.concat(handlebarsConcatData)
         assert.equal('', ret, 'empty params');
     });
     it('should concatenate and return string when a non strings are passed in params', function () {
-        ret = HandlebarHelper.concat('Hello ', 123, ' ', true)
+        ret = HandlebarHelper.concat('Hello ', 123, ' ', true, handlebarsConcatData)
         assert.equal('Hello 123 true', ret, 'concat string is "Hello 123 true"');
     });
 });
