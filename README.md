@@ -204,7 +204,7 @@ and CRDs with a high level `.data` section can be pulled in by using the
 `genericMapRef` key. The keys pulled from the resource are what you would use
 to match values into your templates.
 
-**Note:**: values are loaded in from `.spec.envFrom` before `.spec.env`, and
+**Note:** values are loaded in from `.spec.envFrom` before `.spec.env`, and
 top down. Any values with the same key/name will be overwritten, last in wins.
 
 **Schema:**
@@ -283,6 +283,7 @@ the value will be treated as a normal string.
 
 **Note:** values are loaded in from `.spec.envFrom` before `.spec.env`, and
 top down. Any values with the same key/name will be overwritten, last in wins.
+If you want to have json values merged, specify [`overrideStrategy: merge`](#Env-overrideStrategy)
 
 **Schema:**
 
@@ -325,6 +326,9 @@ env:
         x-kubernetes-int-or-string: true
       name:
         type: string
+      overrideStrategy:
+        type: string
+        pattern: "^merge$|^replace$"
       value:
         x-kubernetes-int-or-string: true
       valueFrom:
@@ -409,6 +413,23 @@ is `true` and `.spec.env[].default` is defined, the default value will be used.
 default:
   x-kubernetes-int-or-string: true
 ```
+
+#### Env overrideStrategy
+
+**Path:** `.spec.env[].overrideStrategy`
+
+**Description:** If you are loading envs as json, and you want to allow overrided
+values to merge instead of just replacing, specify `overrideStrategy: merge`.
+
+**Schema:**
+
+```yaml
+overrideStrategy:
+  type: string
+  pattern: "^merge$|^replace$"
+```
+
+**Default:** `replace`
 
 ### Managed Resource Labels
 
