@@ -437,7 +437,7 @@ values to merge instead of just replacing, specify `overrideStrategy: merge`.
 
 **Note:** If either env defined is not a json object when merge is specified, the
 behavior will revert to replace instead of merge (ie. a json object is loaded first,
-then a jsonString is loaded second with `overrideStrategy: merge` specified. the 
+then a jsonString is loaded second with `overrideStrategy: merge` specified. the
 jsonString will replace the first json object instead of trying to merge with it.)
 
 **Schema:**
