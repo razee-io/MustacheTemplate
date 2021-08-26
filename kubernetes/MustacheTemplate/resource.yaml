@@ -219,6 +219,9 @@ items:
                             x-kubernetes-int-or-string: true
                           name:
                             type: string
+                          overrideStrategy:
+                            type: string
+                            pattern: "^merge$|^replace$"
                           value:
                             x-kubernetes-int-or-string: true
                           valueFrom:
