@@ -1,7 +1,6 @@
 # MustacheTemplate
 
 [![Build Status](https://travis-ci.com/razee-io/MustacheTemplate.svg?branch=master)](https://travis-ci.com/razee-io/MustacheTemplate)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=razee-io/MustacheTemplate)](https://dependabot.com)
 ![GitHub](https://img.shields.io/github/license/razee-io/MustacheTemplate.svg?color=success)
 
 MustacheTemplate is the next step of complexity when working with Razee. With
@@ -42,11 +41,26 @@ spec:
     - name: app-label
       value: "deployment 1"
     - name: desired-replicas
+      optional: true
+      default: 3
       valueFrom:
         configMapKeyRef:
           name: nginx-config
           key: replicas
           type: number
+    - name: json-config
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-config-globals
+          key: my-app-config
+          type: json
+    - name: json-config
+      overrideStrategy: merge
+      valueFrom:
+        configMapKeyRef:
+          name: nginx-config-dev
+          key: my-app-config-dev-overrides
+          type: json
   templates:
   - apiVersion: v1
     kind: ConfigMap
@@ -283,7 +297,7 @@ the value will be treated as a normal string.
 
 **Note:** values are loaded in from `.spec.envFrom` before `.spec.env`, and
 top down. Any values with the same key/name will be overwritten, last in wins.
-If you want to have json values merged, specify [`overrideStrategy: merge`](#Env-overrideStrategy)
+If you want to have json values merged, specify [`overrideStrategy: merge`](#Env-OverrideStrategy)
 
 **Schema:**
 
@@ -414,12 +428,17 @@ default:
   x-kubernetes-int-or-string: true
 ```
 
-#### Env overrideStrategy
+#### Env OverrideStrategy
 
 **Path:** `.spec.env[].overrideStrategy`
 
 **Description:** If you are loading envs as json, and you want to allow overrided
 values to merge instead of just replacing, specify `overrideStrategy: merge`.
+
+**Note:** If either env defined is not a json object when merge is specified, the
+behavior will revert to replace instead of merge (ie. a json object is loaded first,
+then a jsonString is loaded second with `overrideStrategy: merge` specified. the 
+jsonString will replace the first json object instead of trying to merge with it.)
 
 **Schema:**
 
