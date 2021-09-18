@@ -1,4 +1,4 @@
-var assert = require('chai').assert;
+var {assert} = require('chai');
 var HandlebarHelper = require('../src/handlebar-helpers');
 
 describe('handlebar-helpers', function () {
@@ -444,5 +444,38 @@ describe('handlebar-helpers', function () {
       assert.equal('"\\"hello from the \\\\\\"test suite\\\\\\"\\""', ret, 'should double stringify string properly');
     });
   });
+  describe('#envPattern()', function () {
+    it('should throw a typeerror when provided an invalid expression', function () {
+      const invalid = 'w+';
+      assert.throws(() => {
+        HandlebarHelper.envPattern(invalid, {});
+      }, TypeError, /invalid regular expression pattern w\+/i);
+    });
 
+    it('should convert matching keys to a related objects', function () {
+      const ctx = {
+        data: {
+          root: {
+            foo_one: 1,
+            bar_two: 2,
+            BAR_THREE: 3
+          }
+        }
+      };
+      const pattern = '/^(foo|bar)_\\w+/i';
+      HandlebarHelper.envPattern(pattern, ctx);
+      assert.deepEqual(ctx, {
+        data: {
+          root: {
+            foo_one: 1,
+            bar_two: 2,
+            BAR_THREE: 3,
+            foo: {one: 1},
+            bar: {two: 2},
+            BAR: {THREE: 3}
+          }
+        }
+      });
+    });
+  });
 });
