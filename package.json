@@ -15,7 +15,7 @@
     "test": "nyc --reporter=html --all --reporter=text mocha ",
     "test:debug": "mocha --inspect-brk",
     "check-coverage": "nyc check-coverage --statements 0 --branches 0 --functions 0 --lines 0",
-    "lint": "npx npm-run-all eslint dockerlint yaml-lint markdownlint jsonlint shellcheck",
+    "lint": "npx npm-run-all --npm-path npm eslint dockerlint yaml-lint markdownlint jsonlint shellcheck",
     "eslint": "npx eslint src/",
     "dockerlint": "npx dockerlint Dockerfile",
     "yaml-lint": "npx yamllint .travis.yml kubernetes/MustacheTemplate/resource.yaml",
