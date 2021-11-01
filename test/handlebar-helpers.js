@@ -429,6 +429,10 @@ describe('handlebar-helpers', function () {
       let ret = HandlebarHelper.jsonStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' });
       assert.equal('{"a":{"b":80808,"c":true},"d":"efgh"}', ret, 'should stringify json string properly');
     });
+    it('should create stringified json data with whitespace when given json data and using space param', function () {
+      let ret = HandlebarHelper.jsonStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' }, 2);
+      assert.equal('{\n  "a": {\n    "b": 80808,\n    "c": true\n  },\n  "d": "efgh"\n}', ret, 'should stringify json string and add whitespace properly');
+    });
     it('should create stringified data when given string', function () {
       let ret = HandlebarHelper.jsonStringify('hello from the "test suite"');
       assert.equal('"hello from the \\"test suite\\""', ret, 'should stringify string properly');
@@ -438,6 +442,10 @@ describe('handlebar-helpers', function () {
     it('should create double stringified json data when given json data', function () {
       let ret = HandlebarHelper.jsonDoubleStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' });
       assert.equal('"{\\"a\\":{\\"b\\":80808,\\"c\\":true},\\"d\\":\\"efgh\\"}"', ret, 'should double stringify json string properly');
+    });
+    it('should create double stringified json data with whitespace when given json data and using space param', function () {
+      let ret = HandlebarHelper.jsonDoubleStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' }, 2);
+      assert.equal('"{\\n  \\"a\\": {\\n    \\"b\\": 80808,\\n    \\"c\\": true\\n  },\\n  \\"d\\": \\"efgh\\"\\n}"', ret, 'should double stringify json string and add whitespace properly');
     });
     it('should create double stringified data when given string', function () {
       let ret = HandlebarHelper.jsonDoubleStringify('hello from the "test suite"');
