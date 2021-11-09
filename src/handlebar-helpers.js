@@ -19,11 +19,11 @@ const helpers = {
   gt: (v1, v2) => v1 > v2,
   lte: (v1, v2) => v1 <= v2,
   gte: (v1, v2) => v1 >= v2,
-  and() {
-    return Array.prototype.every.call(arguments, Boolean);
+  and(...args) {
+    return args.every(Boolean);
   },
-  or() {
-    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+  or(...args) {
+    return args.slice(0, -1).some(Boolean);
   },
   split: function (data, delimiter) {
     if (typeof data === 'string' && typeof delimiter === 'string') {
@@ -83,6 +83,14 @@ const helpers = {
   jsonDoubleStringify: function (data, space) {
     // if you want to use this, you must use our strTemplate, and you must not put quotes around your template (ie. `my-field: {{ jsonStringify my-json }}` is valid but `my-field: "{{ jsonStringify my-json }}"` is not)
     return JSON.stringify(JSON.stringify(data, null, space));
+  },
+  pick: function (...args) {
+    return args.find((value) => {
+      if (value === null) return false;
+      if (value === undefined) return false;
+      if (value === '') return false;
+      return true;
+    });
   }
 };
 

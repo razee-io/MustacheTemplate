@@ -453,4 +453,26 @@ describe('handlebar-helpers', function () {
     });
   });
 
+  describe('#pick()', function() {
+    it('should omit null and undefined values', function () {
+      let ret = HandlebarHelper.pick(null, undefined, []);
+      assert.deepEqual(ret, [], 'Should return empty array');
+    });
+
+    it('should omit empty string values', function () {
+      let ret = HandlebarHelper.pick(null, undefined, '', [], 100);
+      assert.deepEqual(ret, [], 'Should return empty array');
+    });
+
+    it('should find finite numerical values', function () {
+      let ret = HandlebarHelper.pick(null, 0, undefined, []);
+      assert.equal(ret, 0, 'Should return 0');
+    });
+
+    it('should find string literal "null"', function () {
+      let ret = HandlebarHelper.pick(null, undefined, 'null', []);
+      assert.equal(ret, 'null', 'Should return "null"');
+    });
+  });
+
 });
