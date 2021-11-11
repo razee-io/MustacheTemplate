@@ -91,6 +91,26 @@ const helpers = {
       if (value === '') return false;
       return true;
     });
+  },
+  startswith: function(str, ...args) {
+    if (typeof str !== 'string') return false;
+    return args.some((arg) => {
+      return str.startsWith(arg);
+    });
+  },
+  endswith: function(str, ...args) {
+    if (typeof str !== 'string') return false;
+    return args.some((arg) => {
+      return str.endsWith(arg);
+    });
+  },
+  lower: function(str) {
+    if (typeof str !== 'string') return str;
+    return str.toLowerCase();
+  },
+  upper: function(str) {
+    if (typeof str !== 'string') return str;
+    return str.toUpperCase();
   }
 };
 

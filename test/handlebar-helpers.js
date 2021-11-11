@@ -475,4 +475,71 @@ describe('handlebar-helpers', function () {
     });
   });
 
+  describe('#startswith()', function() {
+    let startswith = HandlebarHelper.startswith;
+
+    it('should return false for non-string input', function() {
+      assert.notOk(startswith(1, '1'), 'string match not found');
+    });
+
+    it('should return true for a prefix match', function() {
+      assert.ok(startswith('hello world', 'hel'), 'string match found');
+    });
+
+    it('should return true for a prefix match from multiple inputs', function() {
+      assert.ok(startswith('hello world', null, 1, 'test', 'hel'), 'string match found');
+    });
+
+    it('should return false for a prefix mismatch', function() {
+      assert.notOk(startswith('hello world', 'bye'), 'string match not found');
+    });
+
+    it('should return false for a prefix mismatch from multiple values', function() {
+      assert.notOk(startswith('hello world', null, 1, 'test','bye'), 'string match not found');
+    });
+  });
+
+  describe('#endswith()', function() {
+    let endswith = HandlebarHelper.endswith;
+
+    it('should return false for non-string input', function() {
+      assert.notOk(endswith(1, '1'), 'string match not found');
+    });
+
+    it('should return true for a prefix match', function() {
+      assert.ok(endswith('hello world', 'rld'), 'string match found');
+    });
+
+    it('should return true for a prefix match from multiple inputs', function() {
+      assert.ok(endswith('hello world', null, 1, 'test', 'rld'), 'string match found');
+    });
+
+    it('should return false for a prefix mismatch', function() {
+      assert.notOk(endswith('hello world', 'bye'), 'string match not found');
+    });
+
+    it('should return false for a prefix mismatch from multiple values', function() {
+      assert.notOk(endswith('hello world', null, 1, 'test','bye'), 'string match not found');
+    });
+  });
+
+  describe('#upper()', function() {
+    let upper = HandlebarHelper.upper;
+    it('should return string values in all uppercase letters', function() {
+      assert.equal(upper('hEllo_World'), 'HELLO_WORLD', 'all letter upper cased');
+    });
+    it('should noop non-string values', function() {
+      assert.deepEqual(upper({}), {}, 'non string input is passed through');
+    });
+  });
+
+  describe('#lower()', function() {
+    let lower = HandlebarHelper.lower;
+    it('should return string values in all lowercase letters', function() {
+      assert.equal(lower('hEllo_World'), 'hello_world', 'all letter lower cased');
+    });
+    it('should noop non-string values', function() {
+      assert.deepEqual(lower({}), {}, 'non string input is passed through');
+    });
+  });
 });
