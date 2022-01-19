@@ -23,7 +23,7 @@ const log = require('./logger').createLogger(ControllerString);
 
 async function createNewEventHandler(kc) {
   let result;
-  let resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha1', ControllerString, 'watch');
+  let resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', ControllerString, 'watch');
   if (resourceMeta) {
     let params = {
       kubeResourceMeta: resourceMeta,
@@ -35,7 +35,7 @@ async function createNewEventHandler(kc) {
     };
     result = new EventHandler(params);
   } else {
-    log.error(`Unable to find KubeResourceMeta for deploy.razee.io/v1alpha1: ${ControllerString}`);
+    log.error(`Unable to find KubeResourceMeta for deploy.razee.io/v1alpha2: ${ControllerString}`);
   }
   return result;
 }
