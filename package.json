@@ -19,7 +19,7 @@
     "eslint": "npx eslint src/",
     "dockerlint": "npx dockerlint Dockerfile",
     "yaml-lint": "npx yamllint .travis.yml kubernetes/MustacheTemplate/resource.yaml",
-    "markdownlint": "npx markdownlint README.md docs/",
+    "markdownlint": "npx markdownlint-cli README.md docs/",
     "jsonlint": "npx jsonlint --quiet build/viewTemplate.json",
     "shellcheck": "npx shellcheck build/*.sh"
   },
