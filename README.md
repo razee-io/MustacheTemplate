@@ -61,6 +61,14 @@ spec:
           name: nginx-config-dev
           key: my-app-config-dev-overrides
           type: json
+    - name: json-merge-selectors
+      overrideStrategy: merge
+      valueFrom:
+        configMapKeyRef:
+          matchLabels:
+            app: json-rules-merge
+          key: json-config
+          type: json
   templates:
   - apiVersion: v1
     kind: ConfigMap
@@ -354,7 +362,9 @@ env:
         properties:
           configMapKeyRef:
             type: object
-            required: [name, key]
+            oneOf:
+              - required: [key, name]
+              - required: [key, matchLabels]
             properties:
               name:
                 type: string
@@ -365,9 +375,14 @@ env:
               type:
                 type: string
                 enum: [number, boolean, json, jsonString, base64]
+              matchLabels:
+                type: object
+                additionalProperties: true
           secretKeyRef:
             type: object
-            required: [name, key]
+            oneOf:
+              - required: [key, name]
+              - required: [key, matchLabels]
             properties:
               name:
                 type: string
@@ -378,9 +393,14 @@ env:
               type:
                 type: string
                 enum: [number, boolean, json, jsonString, base64]
+              matchLabels:
+                type: object
+                additionalProperties: true
           genericKeyRef:
             type: object
-            required: [apiVersion, kind, name, key]
+            oneOf:
+              - required: [apiVersion, kind, name, key]
+              - required: [apiVersion, kind, matchLabels, key]
             properties:
               apiVersion:
                 type: string
@@ -395,6 +415,9 @@ env:
               type:
                 type: string
                 enum: [number, boolean, json, jsonString, base64]
+              matchLabels:
+                type: object
+                additionalProperties: true
 ```
 
 #### Env Optional
