@@ -25,8 +25,9 @@ defined in the `.spec.templates`, and finally apply the processed yaml to the cl
    Refer to [the impersonation webhook](<https://github.com/razee-io/ImpersonationWebhook>)
    for installation instruction.
    **Important:**
-   This webhook **must** be installed to perform permission validation. Otherwise, privilege
-   escalation can occur via `.spec.clusterAuth.impersonateUser` field.
+   This webhook **must** be installed to perform permission validation.
+   Otherwise, privilege escalation can occur via
+   `.spec.clusterAuth.impersonateUser` field.
 
 **Note**: [Razee Deploy Delta](https://github.com/razee-io/razeedeploy-delta)
 can be used to simplify deployment process.
