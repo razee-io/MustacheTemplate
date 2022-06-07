@@ -14,20 +14,20 @@ defined in the `.spec.templates`, and finally apply the processed yaml to the cl
 
 ## Install
 
-1. Install custom resource definition and controller
+1. Install impersonation webhook
 
-   ```shell
-   kubectl apply -f "https://github.com/razee-io/MustacheTemplate/releases/latest/download/resource.yaml"
-   ```
-
-2. Install impersonation webhook
-
-   Refer to [the impersonation webhook](<https://github.com/razee-io/ImpersonationWebhook>)
+   Refer to [the impersonation webhook](https://github.com/razee-io/ImpersonationWebhook#installation)
    for installation instruction.
    **Important:**
    This webhook **must** be installed to perform permission validation.
    Otherwise, privilege escalation can occur via
    `.spec.clusterAuth.impersonateUser` field.
+
+2. Install custom resource definition and controller
+
+   ```shell
+   kubectl apply -f "https://github.com/razee-io/MustacheTemplate/releases/latest/download/resource.yaml"
+   ```
 
 **Note**: [Razee Deploy Delta](https://github.com/razee-io/razeedeploy-delta)
 can be used to simplify deployment process.
