@@ -165,10 +165,16 @@ make related to the resource (fetching envs, getting resources, applying
 resources, etc.). ImpersonateUser only applies to the single RazeeDeploy
 resource that it has been added to.
 
-**Important:** [The impersonation webhook](https://github.com/razee-io/ImpersonationWebhook)
-**must** be installed to perform permission validation. Only users with impersonation
-permission can impersonate others. If the webhook is not installed, anyone can
-impersonate others, and this will lead to privilege escalation.
+**Enable Feature:** [Enable User Impersonation](#enable-cluster-wide-user-impersonation)
+
+**Warning:** By default, Razeedeploy runs as cluster wide admin. Any user that has
+permission to create a razeedeploy resource (RemoteResource or MustacheTemplate)
+has the ability to escalate their privileges. To prevent privilege escalation,
+cluster owners should restrict which users are allowed to create razeedeploy
+resources. Alternatively, you can setup [ImpersonationWebhook](https://github.com/razee-io/ImpersonationWebhook)
+and then [enable user impersonation](#enable-cluster-wide-user-impersonation) to
+ensure razeedeploy only allows users to do operations that they have already been
+granted access to do.
 
 **Schema:**
 
