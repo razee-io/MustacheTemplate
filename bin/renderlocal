@@ -3,9 +3,8 @@
 const nopt = require('nopt');
 const path = require('path');
 
-const { FetchEnvs, MockController } = require('@razee/razeedeploy-core');
-const IOUtils = require('../src/IOUtils');
-const LocalMustacheTemplateController = require('../src/LocalMustacheTemplateController');
+const IOUtils = require('../test/lib/IOUtils');
+const LocalRenderer = require('../test/lib/LocalRenderer');
 
 const args = nopt(
   {
@@ -27,29 +26,12 @@ if (args.env === undefined || args.env.length < 1) {
 }
 
 async function renderLocal() {
-  const mtp = await IOUtils.readYamlFile(args.mtp);
-  const kubeData = await IOUtils.kubeDataFromYamlFiles(...args.env);
-
-  const eventData = {
-    type: 'ADDED',
-    object: mtp[0]
-  }
-
-  const fetchEnvs = new FetchEnvs(new MockController(eventData, kubeData));
-  const view = await fetchEnvs.get('spec');
-
-  const mtpController = new LocalMustacheTemplateController({eventData: eventData, kubeData: kubeData});
-  let templates = mtpController.concatTemplates();
-  await mtpController.processTemplate(templates, view);
-
-  if (templates.length > 1) {
-    throw Error("can only handle one template!");
-  }
+  const data = await new LocalRenderer(args.mtp, ...args.env).render();
 
   if (args.out === undefined) {
-    await IOUtils.printYaml(templates[0]);
+    await IOUtils.printYaml(data);
   } else {
-    await IOUtils.writeYamlFile(templates[0], args.out)
+    await IOUtils.writeYamlFile(data, args.out)
   }
 };
 

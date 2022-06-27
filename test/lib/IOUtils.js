@@ -1,4 +1,4 @@
-const fs = require('fs');
+const {promises: fs} = require('fs');
 const yaml = require('js-yaml');
 
 async function kubeDataFromYamlFiles(...filePaths) {
@@ -11,6 +11,11 @@ async function kubeDataFromYamlFiles(...filePaths) {
         kubeData[kind] = [];
       }
       kubeData[kind].push(element);
+      if (element.metadata.namespace === undefined) {
+        const msg = `assuming "default" namespace missing from ${element.kind}/${element.metadata.name} in ${filePath}`;
+        console.warn(msg);
+        element.metadata.namespace = 'default';
+      }
     }
   }
   return kubeData;
@@ -25,7 +30,7 @@ async function printYaml(asObj) {
 }
 
 async function readFile(filePath) {
-  return await fs.promises.readFile(filePath);
+  return await fs.readFile(filePath);
 }
 
 async function readYamlFile(filePath) {
@@ -33,7 +38,7 @@ async function readYamlFile(filePath) {
 }
 
 async function writeFile(contents, filePath) {
-  fs.writeFile(filePath, contents, (err) => { console.error(err); });
+  await fs.writeFile(filePath, contents);
 }
 
 async function writeYamlFile(asObj, filePath) {

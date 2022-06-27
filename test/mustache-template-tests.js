@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Controller = require('../src/LocalMustacheTemplateController');
+var Controller = require('../test/lib/LocalMustacheTemplateController');
 
 describe('#processTemplates', async function () {
   const eventData = {
