@@ -1,0 +1,28 @@
+---
+kind: MustacheTemplate
+apiVersion: "deploy.razee.io/v1alpha2"
+metadata:
+  name: hello-mtp
+  namespace: default
+spec:
+  env:
+  - name: name
+    valueFrom:
+      configMapKeyRef:
+        name: hello-cm
+        key: name
+  - name: greeting
+    valueFrom:
+      configMapKeyRef:
+        name: alternate-greeting-cm
+        key: greeting
+    optional: true
+    default: "hello"
+  templates:
+  - kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: result
+      namespace: default
+    data:
+      result: "{{greeting}}, {{name}}!"
