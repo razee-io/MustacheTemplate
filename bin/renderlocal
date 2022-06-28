@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+const nopt = require('nopt');
+const path = require('path');
+
+const IOUtils = require('../test/lib/IOUtils');
+const LocalRenderer = require('../test/lib/LocalRenderer');
+
+const args = nopt(
+  {
+    mtp: path,
+    out: path,
+    env: [path, Array]
+  },
+  {}, process.argv, 2
+);
+
+if (args.mtp === undefined) {
+  console.error("exactly one --mtp is required!");
+  process.exit(1);
+}
+
+if (args.env === undefined || args.env.length < 1) {
+  console.error("at least one --env is required!");
+  process.exit(1);
+}
+
+async function renderLocal() {
+  const data = await new LocalRenderer(args.mtp, ...args.env).render();
+
+  if (args.out === undefined) {
+    await IOUtils.printYaml(data);
+  } else {
+    await IOUtils.writeYamlFile(data, args.out)
+  }
+};
+
+renderLocal();
