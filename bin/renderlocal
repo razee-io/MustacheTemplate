@@ -3,8 +3,8 @@
 const nopt = require('nopt');
 const path = require('path');
 
-const IOUtils = require('../test/lib/IOUtils');
-const LocalRenderer = require('../test/lib/LocalRenderer');
+const IOUtils = require('../lib/IOUtils');
+const LocalRenderer = require('../lib/LocalRenderer');
 
 const args = nopt(
   {
@@ -16,12 +16,12 @@ const args = nopt(
 );
 
 if (args.mtp === undefined) {
-  console.error("exactly one --mtp is required!");
+  console.error('exactly one --mtp is required!');
   process.exit(1);
 }
 
 if (args.env === undefined || args.env.length < 1) {
-  console.error("at least one --env is required!");
+  console.error('at least one --env is required!');
   process.exit(1);
 }
 
@@ -31,8 +31,8 @@ async function renderLocal() {
   if (args.out === undefined) {
     await IOUtils.printYaml(data);
   } else {
-    await IOUtils.writeYamlFile(data, args.out)
+    await IOUtils.writeYamlFile(data, args.out);
   }
-};
+}
 
 renderLocal();

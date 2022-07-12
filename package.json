@@ -4,8 +4,8 @@
   "description": "Razee: component to use the Mustache template processor on kubernetes resource configurations.",
   "main": "./src/index.js",
   "bin": {
-  "mustachetemplate": "./bin/mustachetemplate",
-  "renderlocal": "./bin/renderlocal"
+    "mustachetemplate": "./bin/mustachetemplate",
+    "renderlocal": "./bin/renderlocal"
   },
   "keywords": [
     "kubernetes",
