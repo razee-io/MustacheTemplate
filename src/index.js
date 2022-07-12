@@ -18,7 +18,6 @@ const { EventHandler, KubeClass } = require('@razee/kubernetes-util');
 
 const ControllerString = 'MustacheTemplate';
 const Controller = require(`./${ControllerString}Controller`);
-const LocalRenderer = require(`${__dirname}/../test/lib/LocalRenderer`);
 const log = require('./logger').createLogger(ControllerString);
 
 async function createNewEventHandler(kc) {
@@ -72,6 +71,6 @@ async function run() {
 
 module.exports = {
   run,
-  LocalRenderer,
+  LocalRenderer: require('../lib/LocalRenderer'),
   MustacheTemplateController: Controller
 };
