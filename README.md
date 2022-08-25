@@ -318,7 +318,7 @@ the value will be treated as a normal string.
 
 **Note:** values are loaded in from `.spec.envFrom` before `.spec.env`, and
 top down. Any values with the same key/name will be overwritten, last in wins.
-If you want to have json values merged, specify [`overrideStrategy: merge`](#env-overrideStrategy)
+If you want to have json values merged, specify [`overrideStrategy: merge`](#env-overridestrategy)
 
 **Schema:**
 
