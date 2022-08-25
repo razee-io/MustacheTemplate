@@ -318,7 +318,7 @@ the value will be treated as a normal string.
 
 **Note:** values are loaded in from `.spec.envFrom` before `.spec.env`, and
 top down. Any values with the same key/name will be overwritten, last in wins.
-If you want to have json values merged, specify [`overrideStrategy: merge`](#Env-OverrideStrategy)
+If you want to have json values merged, specify [`overrideStrategy: merge`](#env-overridestrategy)
 
 **Schema:**
 
@@ -549,7 +549,7 @@ the resource, and the label `deploy.razee.io/debug: true` exists on the live
 resource, it will treat the resource as ensure exist and not override any changes.
 This is useful for when you need to debug a live resource and don't want Kapitan
 overriding your changes. Note: this will only work when you add it to live resources.
-If you want to have the EnsureExist behavior, see [Resource Update Mode](#Resource-Update-Mode).
+If you want to have the EnsureExist behavior, see [Resource Update Mode](#resource-update-mode).
 
 - ie: `kubectl label mtp <your-mtp> deploy.razee.io/debug=true`
 
