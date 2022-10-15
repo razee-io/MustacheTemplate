@@ -25,9 +25,9 @@ const log = require('./logger').createLogger(ControllerString);
 
 async function createNewEventHandler(kc) {
   let result;
-  let resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', ControllerString, 'watch');
+  const resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', ControllerString, 'watch');
   if (resourceMeta) {
-    let params = {
+    const params = {
       kubeResourceMeta: resourceMeta,
       factory: Controller,
       kubeClass: kc,
@@ -44,9 +44,9 @@ async function createNewEventHandler(kc) {
 
 async function createParentRRMEventHandler(kc, parentResourceKind) {
   let result;
-  let resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', parentResourceKind, 'watch');
+  const resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', parentResourceKind, 'watch');
   if (resourceMeta) {
-    let params = {
+    const params = {
       kubeResourceMeta: resourceMeta,
       factory: ReferencedResourceManager,
       kubeClass: kc,
