@@ -43,7 +43,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@razee/kubernetes-util": "^1.0.1",
+    "@razee/kubernetes-util": "^1.0.2",
     "@razee/razeedeploy-core": "^1.1.2",
     "handlebars": "^4.7.7",
     "js-yaml": "^4.1.0",

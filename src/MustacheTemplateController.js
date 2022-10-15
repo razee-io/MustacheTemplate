@@ -20,7 +20,8 @@ const HandlebarHelpers = require('./handlebar-helpers');
 const objectPath = require('object-path');
 const yaml = require('js-yaml');
 
-const { BaseTemplateController } = require('@razee/razeedeploy-core');
+//const { BaseTemplateController } = require('@razee/razeedeploy-core');
+const { BaseTemplateController } = require('../../razeedeploy-core/');//TEMP for local testing, remove this line in favor of the above once RRM PR is merged
 
 module.exports = class MustacheTemplateController extends BaseTemplateController {
   constructor(params) {
