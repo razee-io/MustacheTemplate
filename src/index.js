@@ -53,11 +53,11 @@ async function createParentRRMEventHandler(kc, parentResourceKind) {
       logger: log,
       requestOptions: { qs: { timeoutSeconds: process.env.CRD_WATCH_TIMEOUT_SECONDS || 300 } },
       livenessInterval: true,
-      managedResourceType: "parent"
+      managedResourceType: 'parent'
     };
     result = new RRMEventHandler(params);
   } else {
-    log.error(`Unable to find KubeResourceMeta for deploy.razee.io/v1alpha2: ${parentTemplateType}`);
+    log.error(`Unable to find KubeResourceMeta for deploy.razee.io/v1alpha2: ${parentResourceKind}`);
   }
   return result;
 }
