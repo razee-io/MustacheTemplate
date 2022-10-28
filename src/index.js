@@ -15,8 +15,7 @@
  */
 
 const { EventHandler, KubeClass } = require('@razee/kubernetes-util');
-//const { ReferencedResourceManager, RRMEventHandler } = require('@razee/razeedeploy-core');
-const { ReferencedResourceManager, RRMEventHandler } = require('../../razeedeploy-core/');//TEMP for local testing, remove this line in favor of the above once RRM PR is merged
+const { ReferencedResourceManager, RRMEventHandler } = require('@razee/razeedeploy-core');
 const ParentResourceKinds = ['MustacheTemplate'];
 
 const ControllerString = 'MustacheTemplate';
