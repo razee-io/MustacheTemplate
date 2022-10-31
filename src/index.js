@@ -15,6 +15,8 @@
  */
 
 const { EventHandler, KubeClass } = require('@razee/kubernetes-util');
+const { ReferencedResourceManager, RRMEventHandler } = require('@razee/razeedeploy-core');
+const ParentResourceKinds = ['MustacheTemplate'];
 
 const ControllerString = 'MustacheTemplate';
 const Controller = require(`./${ControllerString}Controller`);
@@ -22,9 +24,9 @@ const log = require('./logger').createLogger(ControllerString);
 
 async function createNewEventHandler(kc) {
   let result;
-  let resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', ControllerString, 'watch');
+  const resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', ControllerString, 'watch');
   if (resourceMeta) {
-    let params = {
+    const params = {
       kubeResourceMeta: resourceMeta,
       factory: Controller,
       kubeClass: kc,
@@ -39,10 +41,33 @@ async function createNewEventHandler(kc) {
   return result;
 }
 
+async function createParentRRMEventHandler(kc, parentResourceKind) {
+  let result;
+  const resourceMeta = await kc.getKubeResourceMeta('deploy.razee.io/v1alpha2', parentResourceKind, 'watch');
+  if (resourceMeta) {
+    const params = {
+      kubeResourceMeta: resourceMeta,
+      factory: ReferencedResourceManager,
+      kubeClass: kc,
+      logger: log,
+      requestOptions: { qs: { timeoutSeconds: process.env.CRD_WATCH_TIMEOUT_SECONDS || 300 } },
+      livenessInterval: true,
+      managedResourceType: 'parent'
+    };
+    result = new RRMEventHandler(params);
+  } else {
+    log.error(`Unable to find KubeResourceMeta for deploy.razee.io/v1alpha2: ${parentResourceKind}`);
+  }
+  return result;
+}
+
 async function main() {
   log.info(`Running ${ControllerString}Controller.`);
   const kc = new KubeClass();
   await createNewEventHandler(kc);
+  for (const parentResourceKind of ParentResourceKinds) {
+    await createParentRRMEventHandler(kc, parentResourceKind);
+  }
 }
 
 
