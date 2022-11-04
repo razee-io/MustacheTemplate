@@ -50,6 +50,12 @@ items:
                   value: razee-io/mustachetemplate
                 - name: USER_AGENT_VERSION
                   value: "{{{TRAVIS_TAG}}}"
+                - name: MTP_RECONCILE_BY_DEFAULT
+                  valueFrom:
+                    configMapKeyRef:
+                      name: razeedeploy-overrides
+                      key: MTP_RECONCILE_BY_DEFAULT
+                      optional: true
                 - name: CRD_WATCH_TIMEOUT_SECONDS
                   valueFrom:
                     configMapKeyRef:
