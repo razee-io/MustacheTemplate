@@ -21,6 +21,8 @@ const ParentResourceKinds = ['MustacheTemplate'];
 const ControllerString = 'MustacheTemplate';
 const Controller = require(`./${ControllerString}Controller`);
 const log = require('./logger').createLogger(ControllerString);
+const log1 = require('./logger').createLogger('ReferencedResourceManager');
+const WATCH_RESOURCE_REFERENCES = process.env.WATCH_RESOURCE_REFERENCES != undefined ? process.env.WATCH_RESOURCE_REFERENCES : 'true';
 
 async function createNewEventHandler(kc) {
   let result;
@@ -52,7 +54,7 @@ async function createParentRRMEventHandler(kc, parentResourceKind) {
       kubeResourceMeta: resourceMeta,
       factory: ReferencedResourceManager,
       kubeClass: kc,
-      logger: log,
+      logger: log1,
       requestOptions: { qs: { timeoutSeconds: process.env.CRD_WATCH_TIMEOUT_SECONDS || 300 } },
       livenessInterval: true,
       managedResourceType: 'parent'
@@ -68,8 +70,10 @@ async function main() {
   log.info(`Running ${ControllerString}Controller.`);
   const kc = new KubeClass();
   await createNewEventHandler(kc);
-  for (const parentResourceKind of ParentResourceKinds) {
-    await createParentRRMEventHandler(kc, parentResourceKind);
+  if (WATCH_RESOURCE_REFERENCES === 'true') {
+    for (const parentResourceKind of ParentResourceKinds) {
+      await createParentRRMEventHandler(kc, parentResourceKind);
+    }
   }
 }
 
