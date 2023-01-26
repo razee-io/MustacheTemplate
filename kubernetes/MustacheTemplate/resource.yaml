@@ -62,6 +62,12 @@ items:
                       name: razeedeploy-overrides
                       key: CRD_WATCH_TIMEOUT_SECONDS
                       optional: true
+                - name: WATCH_RESOURCE_REFERENCES
+                  valueFrom:
+                    configMapKeyRef:
+                      name: razeedeploy-overrides
+                      key: WATCH_RESOURCE_REFERENCES
+                      optional: true
               imagePullPolicy: Always
               name: mustachetemplate-controller
               livenessProbe:
