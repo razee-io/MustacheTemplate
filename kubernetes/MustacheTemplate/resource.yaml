@@ -50,6 +50,12 @@ items:
                   value: razee-io/mustachetemplate
                 - name: USER_AGENT_VERSION
                   value: "{{{TRAVIS_TAG}}}"
+                - name: FETCHENVS_CACHE_SIZE
+                  valueFrom:
+                    configMapKeyRef:
+                      name: razeedeploy-overrides
+                      key: FETCHENVS_CACHE_SIZE
+                      optional: true
                 - name: MTP_RECONCILE_BY_DEFAULT
                   valueFrom:
                     configMapKeyRef:
