@@ -48,7 +48,7 @@
     "handlebars": "^4.7.7",
     "js-yaml": "^4.1.0",
     "mustache": "^4.2.0",
-    "nopt": "^6.0.0",
+    "nopt": "^7.0.0",
     "object-path": "^0.11.8",
     "pino": "^8.5.0"
   },
