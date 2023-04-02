@@ -429,9 +429,13 @@ describe('handlebar-helpers', function () {
       let ret = HandlebarHelper.jsonStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' });
       assert.equal('{"a":{"b":80808,"c":true},"d":"efgh"}', ret, 'should stringify json string properly');
     });
-    it('should create stringified json data with whitespace when given json data and using space param', function () {
+    it('should create stringified json data with whitespace when given json data and using the space param', function () {
       let ret = HandlebarHelper.jsonStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' }, 2);
       assert.equal('{\n  "a": {\n    "b": 80808,\n    "c": true\n  },\n  "d": "efgh"\n}', ret, 'should stringify json string and add whitespace properly');
+    });
+    it('should create indented stringified json data with whitespace when given json data and using both the space and indent params', function () {
+      let ret = HandlebarHelper.jsonStringify({ 'a': { 'b': 80808, 'c': true }, 'd': 'efgh' }, 2, 2);
+      assert.equal('{\n    "a": {\n      "b": 80808,\n      "c": true\n    },\n    "d": "efgh"\n  }', ret, 'should stringify json string and add whitespace properly');
     });
     it('should create stringified data when given string', function () {
       let ret = HandlebarHelper.jsonStringify('hello from the "test suite"');

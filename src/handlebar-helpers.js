@@ -77,8 +77,8 @@ const helpers = {
     }
     return Buffer.from(data).toString('base64');
   },
-  jsonStringify: function (data, space) {
-    return JSON.stringify(data, null, space);
+  jsonStringify: function (data, space, indent = 0) {
+    return JSON.stringify(data, null, space).replace(/\n/g, '\n'+' '.repeat(indent));
   },
   jsonDoubleStringify: function (data, space) {
     // if you want to use this, you must use our strTemplate, and you must not put quotes around your template (ie. `my-field: {{ jsonStringify my-json }}` is valid but `my-field: "{{ jsonStringify my-json }}"` is not)
