@@ -21,7 +21,7 @@
       "GHSA-72xf-g2v4-qvf3": {
         "active": true,
         "notes": "The Request package (see above) requires tough-cookie at a vulnerable version.",
-        "expiry": "2024-0-30"
+        "expiry": "2024-06-30"
       }
     }    ],
   "skip-dev": true
