@@ -12,6 +12,55 @@ The basic operation of MustacheTemplate is to collect all values defined in
 `.spec.envFrom` and `.spec.env`, then use those values to process all yaml
 defined in the `.spec.templates`, and finally apply the processed yaml to the cluster.
 
+> **⚠️ DEPRECATION NOTICE**
+>
+> This project is deprecated and is no longer actively maintained.
+> The razee.io components are no longer being developed or supported.
+>
+> ## Alternatives
+>
+> **For IBM Cloud users:**
+>
+> - [IBM Cloud Continuous Delivery](https://www.ibm.com/products/continuous-delivery)
+>
+> **For open source users:**
+>
+> - [Argo CD](https://argo-cd.readthedocs.io/en/stable/)
+> - [Flux CD](https://fluxcd.io/)
+> - [Tekton](https://tekton.dev/)
+
+## Building from Source
+
+If you need to build the container images yourself, follow these instructions:
+
+### Prerequisites
+
+- Docker or Podman installed
+- Access to a container registry (Docker Hub, Quay.io, etc.)
+
+### Build Instructions
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd MustacheTemplate
+   ```
+
+2. Build the container image:
+
+   ```bash
+   docker build -t <your-registry>/mustachetemplate:<tag> .
+   ```
+
+3. Push the image to your registry:
+
+   ```bash
+   docker push <your-registry>/mustachetemplate:<tag>
+   ```
+
+4. Update your Kubernetes manifests to use your custom image.
+
 ## Install
 
 [Razee Deploy Delta](https://github.com/razee-io/razeedeploy-delta) is the
@@ -514,9 +563,9 @@ Mode options:
   - A simple merge, that will merge objects and replace arrays. Items previously
     defined, then removed from the definition, will be removed from the live resource.
   - "As defined in [RFC7386](https://tools.ietf.org/html/rfc7386), a Merge Patch
-    is essentially a partial representation of the resource. The submitted JSON is
-    "merged" with the current resource to create a new one, then the new one is
-    saved. For more details on how to use Merge Patch, see the RFC." [Reference](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#patch-operations)
+    is essentially a partial representation of the resource. The submitted JSON
+    is "merged" with the current resource to create a new one, then the new one
+    is saved. For more details on how to use Merge Patch, see the RFC." [Reference](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#patch-operations)
 - `StrategicMergePatch`
   - A more complicated merge, the kubernetes apiServer has defined keys to be
     able to intelligently merge arrays it knows about.

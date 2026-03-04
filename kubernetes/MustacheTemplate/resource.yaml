@@ -74,7 +74,7 @@ items:
                       name: razeedeploy-overrides
                       key: WATCH_RESOURCE_REFERENCES
                       optional: true
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               name: mustachetemplate-controller
               livenessProbe:
                 exec:
